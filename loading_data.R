@@ -1,9 +1,9 @@
-devtools::install_github(repo = "maksimhorowitz/nflscrapR")
-# or the following (these are the exact same packages):
-devtools::install_github(repo = "ryurko/nflscrapR")
+#Only have to install the packages once
+#devtools::install_github(repo = "maksimhorowitz/nflscrapR")
+#devtools::install_github(repo = "ryurko/nflscrapR")
 
 remove(list = ls())
-setwd("~/Moneyball")
+setwd("~/Moneyball") # or whatever your directory is
 
 
 pbp19 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2019.csv"))
