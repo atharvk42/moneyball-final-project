@@ -32,14 +32,28 @@ passing_yards_per_team_tbl <- passing_yards_per_team_tbl[!duplicated(passing_yar
 ypc_tbl <- final_data
 ypc_tbl <-
   ypc_tbl %>%
+  filter(winning_team == posteam, play_type == "run") %>%
   group_by(home_team) %>%
-  mutate("ypc" = mean(yards_gained)) %>%
-  filter(winning_team == posteam, play_type == "run")
-
+  mutate("ypc" = mean(yards_gained))
 
 ypc_tbl <- ypc_tbl[!duplicated(ypc_tbl$home_team), ]
 
-ypc_tbl <- select(ypc_tbl, 'game_id', 'ypc')
+ypc_tbl <- select(ypc_tbl, 'ypc')
+
+colnames(ypc_tbl) <- c("Team", "YPC")
+
+ypa_tbl <- final_data
+ypa_tbl <-
+  ypa_tbl %>%
+  filter(winning_team == posteam, play_type == "pass") %>%
+  group_by(home_team) %>%
+  mutate("ypa" = mean(yards_gained))
+
+ypa_tbl <- ypa_tbl[!duplicated(ypa_tbl$home_team), ]
+
+ypa_tbl <- select(ypa_tbl, 'ypa')
+
+colnames(ypa_tbl) <- c("Team", "YPA")
 
 team_stats <-
   team_stats %>%
@@ -55,7 +69,9 @@ team_stats <-
   team_stats %>%
   mutate("winning_percentage" = (Wins)/(Wins+Losses)) %>%
   mutate("percentage_yards_rushing" = rushing_yards_per_team_tbl/(rushing_yards_per_team_tbl+passing_yards_per_team_tbl)) %>%
-  mutate("ypc" = ypc_tbl$ypc)
+  mutate("YPC" = ypc_tbl$YPC) %>%
+  mutate("YPA" = ypa_tbl$YPA)
+
 
 cor(team_stats$percentage_yards_rushing, team_stats$winning_percentage)
 ggplot(data = team_stats) + 
@@ -64,9 +80,19 @@ ggplot(data = team_stats) +
   geom_abline(intercept = 0.8119663, slope = -0.9474407 , color = "black")
   
 ggplot(data = team_stats) + 
-  geom_point(aes(x = ypc, y = winning_percentage, color = Team)) +
+  geom_point(aes(x = YPC, y = winning_percentage, color = Team)) +
   labs(x = "YPC", y = "Winning Percentage") +
-  geom_abline(intercept = -0.3881530, slope = 0.1611404 , color = "black")
+  geom_abline(intercept = 0.36443022, slope = 0.03027151 , color = "black")
+
+ggplot(data = team_stats) + 
+  geom_point(aes(x = YPA, y = winning_percentage, color = Team)) +
+  labs(x = "YPA", y = "Winning Percentage") +
+  geom_abline(intercept = -0.17837374, slope = 0.09528795 , color = "black")
 
 cor(team_stats$ypc, team_stats$winning_percentage)
 
+cor(team_stats$ypa, team_stats$winning_percentage)
+
+fit <- lm(formula = winning_percentage ~ ypc,  data =  team_stats)
+
+fit[["coefficients"]]
