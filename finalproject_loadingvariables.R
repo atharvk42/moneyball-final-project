@@ -1,6 +1,6 @@
-#devtools::install_github(repo = "maksimhorowitz/nflscrapR")
+devtools::install_github(repo = "maksimhorowitz/nflscrapR")
 # or the following (these are the exact same packages):
-#devtools::install_github(repo = "ryurko/nflscrapR")
+devtools::install_github(repo = "ryurko/nflscrapR")
 
 remove(list = ls())
 setwd("~/Moneyball")
