@@ -70,7 +70,3 @@ ggplot(data = team_stats) +
 
 cor(team_stats$ypc, team_stats$winning_percentage)
 
-
-
- 
-
