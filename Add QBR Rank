@@ -1,0 +1,296 @@
+#Add QBR Rank 19
+pbp19 <-
+  pbp19 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "BAL" ~ 1, 
+  posteam == "KC" ~ 2, posteam == "NO" ~ 3, 
+  posteam == "DAL" ~ 4, posteam == "SEA" ~ 5, 
+  posteam == "DET" ~ 6, posteam == "HOU" ~ 7, 
+  posteam == "MIA" ~ 8, posteam == "TEN" ~ 9, 
+  posteam == "OAK" ~ 10, posteam == "PHI" ~ 11, 
+  posteam == "SF" ~ 12, posteam == "MIN" ~ 13, 
+  posteam == "ATL" ~ 14, posteam == "ARI" ~ 15, 
+  posteam == "TB" ~ 16, posteam == "NE" ~ 17, 
+  posteam == "NYG" ~ 18, posteam == "CLE" ~ 19, 
+  posteam == "GB" ~ 20, posteam == "IND" ~ 21, 
+  posteam == "LAC" ~ 22, posteam == "LA" ~ 23, 
+  posteam == "BUF" ~ 24, posteam == "NYJ" ~ 25, 
+  posteam == "JAX" ~ 26, posteam == "CIN" ~ 27, 
+  posteam == "CHI" ~ 28, posteam == "CAR" ~ 29, 
+  posteam == "DEN" ~ 30, posteam == "PIT" ~ 31, 
+  posteam == "WSH" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+
+#Add QBR Rank 18
+pbp18 <-
+  pbp18 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "KC" ~ 1, 
+  posteam == "NO" ~ 2, posteam == "CHI" ~ 3, 
+  posteam == "PIT" ~ 4, posteam == "IND" ~ 5, 
+  posteam == "NE" ~ 6, posteam == "LAC" ~ 7, 
+  posteam == "TB" ~ 8, posteam == "ATL" ~ 9, 
+  posteam == "LA" ~ 10, posteam == "SEA" ~ 11, 
+  posteam == "PHI" ~ 12, posteam == "HOU" ~ 13, 
+  posteam == "MIN" ~ 14, posteam == "CIN" ~ 15, 
+  posteam == "GB" ~ 16, posteam == "DAL" ~ 17, 
+  posteam == "CAR" ~ 18, posteam == "TEN" ~ 19, 
+  posteam == "SF" ~ 20, posteam == "DET" ~ 21, 
+  posteam == "CLE" ~ 22, posteam == "BUF" ~ 23, 
+  posteam == "NYG" ~ 24, posteam == "WSH" ~ 25, 
+  posteam == "BAL" ~ 26, posteam == "OAK" ~ 27, 
+  posteam == "NYJ" ~ 28, posteam == "DEN" ~ 29, 
+  posteam == "JAX" ~ 30, posteam == "MIA" ~ 31, 
+  posteam == "ARI" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+
+#Add QBR Rank 17
+pbp17 <-
+  pbp17 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "PHI" ~ 1, 
+  posteam == "MIN" ~ 2, posteam == "NE" ~ 3, 
+  posteam == "DAL" ~ 4, posteam == "ATL" ~ 5, 
+  posteam == "PIT" ~ 6, posteam == "DET" ~ 7, 
+  posteam == "KC" ~ 8, posteam == "NO" ~ 9, 
+  posteam == "SEA" ~ 10, posteam == "LAC" ~ 11, 
+  posteam == "JAX" ~ 12, posteam == "TEN" ~ 13, 
+  posteam == "BUF" ~ 14, posteam == "WSH" ~ 15, 
+  posteam == "LA" ~ 16, posteam == "NYJ" ~ 17, 
+  posteam == "TB" ~ 18, posteam == "CAR" ~ 19, 
+  posteam == "OAK" ~ 20, posteam == "ARI" ~ 21, 
+  posteam == "NYG" ~ 22, posteam == "BAL" ~ 23, 
+  posteam == "GB" ~ 24, posteam == "CIN" ~ 25, 
+  posteam == "MIA" ~ 26, posteam == "IND" ~ 27, 
+  posteam == "CLE" ~ 28, posteam == "CHI" ~ 29, 
+  posteam == "DEN" ~ 30, posteam == "CLE" ~ 31, 
+  posteam == "SF" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+
+#Add QBR Rank 16
+pbp16 <-
+  pbp16 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "ATL" ~ 1, 
+  posteam == "NE" ~ 2, posteam == "DAL" ~ 3, 
+  posteam == "GB" ~ 4, posteam == "NO" ~ 5, 
+  posteam == "WSH" ~ 6, posteam == "IND" ~ 7, 
+  posteam == "DET" ~ 8, posteam == "BUF" ~ 9, 
+  posteam == "KC" ~ 10, posteam == "PIT" ~ 11, 
+  posteam == "TB" ~ 12, posteam == "TEN" ~ 13, 
+  posteam == "SD" ~ 14, posteam == "SEA" ~ 15, 
+  posteam == "OAK" ~ 16, posteam == "MIN" ~ 17, 
+  posteam == "ARI" ~ 18, posteam == "BAL" ~ 19, 
+  posteam == "CIN" ~ 20, posteam == "DEN" ~ 21, 
+  posteam == "HOU" ~ 22, posteam == "SF" ~ 23, 
+  posteam == "MIA" ~ 24, posteam == "CAR" ~ 25, 
+  posteam == "PHI" ~ 26, posteam == "NYG" ~ 27, 
+  posteam == "JAX" ~ 28, posteam == "NYJ" ~ 29, 
+  posteam == "LA" ~ 30, posteam == "CLE" ~ 31, 
+  posteam == "CHI" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+
+#Add QBR Rank 15
+pbp15 <-
+  pbp15 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "ARI" ~ 1, 
+  posteam == "PIT" ~ 2, posteam == "CIN" ~ 3, 
+  posteam == "SEA" ~ 4, posteam == "NE" ~ 5, 
+  posteam == "WSH" ~ 6, posteam == "NO" ~ 7, 
+  posteam == "BUF" ~ 8, posteam == "ATL" ~ 9, 
+  posteam == "NYJ" ~ 10, posteam == "CAR" ~ 11, 
+  posteam == "KC" ~ 12, posteam == "CHI" ~ 13, 
+  posteam == "GB" ~ 14, posteam == "DET" ~ 15, 
+  posteam == "NYG" ~ 16, posteam == "MIN" ~ 17, 
+  posteam == "SD" ~ 18, posteam == "TB" ~ 19, 
+  posteam == "CLE" ~ 20, posteam == "HOU" ~ 21, 
+  posteam == "IND" ~ 22, posteam == "JAX" ~ 23, 
+  posteam == "BAL" ~ 24, posteam == "DEN" ~ 25, 
+  posteam == "TEN" ~ 26, posteam == "MIA" ~ 27, 
+  posteam == "OAK" ~ 28, posteam == "SF" ~ 29, 
+  posteam == "PHI" ~ 30, posteam == "DAL" ~ 31, 
+  posteam == "STL" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+         
+#Add QBR Rank 14
+pbp14 <-
+  pbp14 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "DAL" ~ 1, 
+  posteam == "GB" ~ 2, posteam == "NE" ~ 3, 
+  posteam == "NO" ~ 4, posteam == "DEN" ~ 5, 
+  posteam == "SEA" ~ 6, posteam == "PIT" ~ 7, 
+  posteam == "BAL" ~ 8, posteam == "ATL" ~ 9, 
+  posteam == "SD" ~ 10, posteam == "IND" ~ 11, 
+  posteam == "PHI" ~ 12, posteam == "HOU" ~ 13, 
+  posteam == "NYG" ~ 14, posteam == "MIA" ~ 15, 
+  posteam == "SF" ~ 16, posteam == "CAR" ~ 17, 
+  posteam == "PHI" ~ 18, posteam == "KC" ~ 19, 
+  posteam == "MIN" ~ 20, posteam == "CHI" ~ 21, 
+  posteam == "CIN" ~ 22, posteam == "NYJ" ~ 23, 
+  posteam == "STL" ~ 24, posteam == "DET" ~ 25, 
+  posteam == "BUF" ~ 26, posteam == "OAK" ~ 27, 
+  posteam == "CLE" ~ 28, posteam == "TB" ~ 29, 
+  posteam == "JAX" ~ 30, posteam == "ARI" ~ 31, 
+  posteam == "WSH" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+
+#Add QBR Rank 13
+pbp13 <-
+  pbp13 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "DEN" ~ 1, 
+  posteam == "SD" ~ 2, posteam == "CHI" ~ 3, 
+  posteam == "PHI" ~ 4, posteam == "NO" ~ 5, 
+  posteam == "ATL" ~ 6, posteam == "SF" ~ 7, 
+  posteam == "SEA" ~ 8, posteam == "CAR" ~ 9, 
+  posteam == "IND" ~ 10, posteam == "NE" ~ 11, 
+  posteam == "DAL" ~ 12, posteam == "GB" ~ 13, 
+  posteam == "TEN" ~ 14, posteam == "PIT" ~ 15, 
+  posteam == "TB" ~ 16, posteam == "CIN" ~ 17, 
+  posteam == "ARI" ~ 18, posteam == "DET" ~ 19, 
+  posteam == "WSH" ~ 20, posteam == "MIA" ~ 21, 
+  posteam == "BAL" ~ 22, posteam == "KC" ~ 23, 
+  posteam == "CLE" ~ 24, posteam == "NYJ" ~ 25, 
+  posteam == "OAK" ~ 26, posteam == "NYG" ~ 27, 
+  posteam == "HOU" ~ 28, posteam == "BUF" ~ 29, 
+  posteam == "JAX" ~ 30, posteam == "CLE" ~ 31, 
+  posteam == "MIN" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+
+#Add QBR Rank 12
+pbp12 <-
+  pbp12 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "DEN" ~ 1, 
+  posteam == "NE" ~ 2, posteam == "SEA" ~ 3, 
+  posteam == "PIT" ~ 4, posteam == "GB" ~ 5, 
+  posteam == "ATL" ~ 6, posteam == "WSH" ~ 7, 
+  posteam == "NO" ~ 8, posteam == "NYG" ~ 9, 
+  posteam == "DAL" ~ 10, posteam == "IND" ~ 11, 
+  posteam == "HOU" ~ 12, posteam == "DET" ~ 13, 
+  posteam == "CAR" ~ 14, posteam == "STL" ~ 15, 
+  posteam == "MIN" ~ 16, posteam == "BAL" ~ 17, 
+  posteam == "MIA" ~ 18, posteam == "PHI" ~ 19, 
+  posteam == "CIN" ~ 20, posteam == "TB" ~ 21, 
+  posteam == "CHI" ~ 22, posteam == "BUF" ~ 23, 
+  posteam == "OAK" ~ 24, posteam == "SD" ~ 25, 
+  posteam == "TEN" ~ 26, posteam == "JAX" ~ 27, 
+  posteam == "CLE" ~ 28, posteam == "NYJ" ~ 29, 
+  posteam == "KC" ~ 30, posteam == "SF" ~ 31, 
+  posteam == "ARI" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+
+#Add QBR Rank 11
+pbp11 <-
+  pbp11 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "GB" ~ 1, 
+  posteam == "NO" ~ 2, posteam == "HOU" ~ 3, 
+  posteam == "NE" ~ 4, posteam == "ATL" ~ 5, 
+  posteam == "DAL" ~ 6, posteam == "PIT" ~ 7, 
+  posteam == "PHI" ~ 8, posteam == "SD" ~ 9, 
+  posteam == "NYG" ~ 10, posteam == "BAL" ~ 11, 
+  posteam == "CHI" ~ 12, posteam == "DET" ~ 13, 
+  posteam == "CAR" ~ 14, posteam == "MIA" ~ 15, 
+  posteam == "SF" ~ 16, posteam == "OAK" ~ 17, 
+  posteam == "TEN" ~ 18, posteam == "BUF" ~ 19, 
+  posteam == "CIN" ~ 20, posteam == "KC" ~ 21, 
+  posteam == "TB" ~ 22, posteam == "SEA" ~ 23, 
+  posteam == "CLE" ~ 24, posteam == "NYJ" ~ 25, 
+  posteam == "WSH" ~ 26, posteam == "DEN" ~ 27, 
+  posteam == "ARI" ~ 28, posteam == "MIN" ~ 29, 
+  posteam == "STL" ~ 30, posteam == "JAX" ~ 31, 
+  posteam == "IND" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+
+# Add QBR Rank 10
+pbp10 <-
+  pbp10 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "NE" ~ 1, 
+  posteam == "IND" ~ 2, posteam == "ATL" ~ 3, 
+  posteam == "NO" ~ 4, posteam == "PHI" ~ 5, 
+  posteam == "GB" ~ 6, posteam == "TB" ~ 7, 
+  posteam == "PIT" ~ 8, posteam == "SD" ~ 9, 
+  posteam == "JAX" ~ 10, posteam == "HOU" ~ 11, 
+  posteam == "BAL" ~ 12, posteam == "NYG" ~ 13, 
+  posteam == "KC" ~ 14, posteam == "TEN" ~ 15, 
+  posteam == "CIN" ~ 16, posteam == "DEN" ~ 17, 
+  posteam == "DET" ~ 18, posteam == "DAL" ~ 19, 
+  posteam == "SEA" ~ 20, posteam == "BUF" ~ 21, 
+  posteam == "CHI" ~ 22, posteam == "NYJ" ~ 23, 
+  posteam == "OAK" ~ 24, posteam == "WSH" ~ 25, 
+  posteam == "STL" ~ 26, posteam == "MIA" ~ 27, 
+  posteam == "SF" ~ 28, posteam == "MIN" ~ 29, 
+  posteam == "ARI" ~ 30, posteam == "CAR" ~ 31, 
+  posteam == "CLE" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
+
+# Add QBR Rank 09
+pbp09 <-
+  pbp09 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "NO" ~ 1, 
+  posteam == "IND" ~ 2, posteam == "SD" ~ 3, 
+  posteam == "MIN" ~ 4, posteam == "NE" ~ 5, 
+  posteam == "HOU" ~ 6, posteam == "NYG" ~ 7, 
+  posteam == "TEN" ~ 8, posteam == "GB" ~ 9, 
+  posteam == "PIT" ~ 10, posteam == "ATL" ~ 11, 
+  posteam == "ARI" ~ 12, posteam == "DAL" ~ 13, 
+  posteam == "CIN" ~ 14, posteam == "BAL" ~ 15, 
+  posteam == "PHI" ~ 16, posteam == "DEN" ~ 17, 
+  posteam == "WAS" ~ 18, posteam == "JAX" ~ 19, 
+  posteam == "MIA" ~ 20, posteam == "CHI" ~ 21, 
+  posteam == "SF" ~ 22, posteam == "CLE" ~ 23, 
+  posteam == "CAR" ~ 24, posteam == "DET" ~ 25, 
+  posteam == "TB" ~ 26, posteam == "BUF" ~ 27, 
+  posteam == "SEA" ~ 28, posteam == "NYJ" ~ 29, 
+  posteam == "STL" ~ 30, posteam == "KC" ~ 31, 
+  posteam == "OAK" ~ 32)) %>%
+  ungroup() %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 
+         'ydstogo', 'ydsnet', 'yards_gained','play_type', 
+         'td_team', 'posteam_qbr_rank')
