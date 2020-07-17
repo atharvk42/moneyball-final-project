@@ -11,8 +11,6 @@ game_data_all <-
   game_data_all %>%
   select('game_id', 'home_score', 'away_score')
 
-
-
 #Combine the play by play and game data
 final_data  <-
   pbp_all %>%
@@ -56,7 +54,6 @@ final_data <-
 final_data <- final_data %>%
   mutate(home_point_diff = 
            home_score - away_score)
-
 
 #Filter Out Blowouts
 final_data <- final_data %>%
