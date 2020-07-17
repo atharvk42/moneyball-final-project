@@ -63,3 +63,23 @@ final_data <- final_data %>%
 #Filter Out Last Two Minutes of the Half
 final_data <- final_data %>%
   filter(120 <= half_seconds_remaining)
+
+#Add Season Column
+final_data <- final_data %>%
+  mutate("season" = case_when(
+  2009091000 <= game_id & game_id <= 2010010316~ "2009",
+  2010090900 <= game_id & game_id <= 2011010216~ "2010",
+  2011090800 <= game_id & game_id <= 2012010116~ "2011",
+  2012090500 <= game_id & game_id <= 2012123016~ "2012",
+  2013090500 <= game_id & game_id <= 2014012016~ "2013",
+  2014090100 <= game_id & game_id <= 2015012016~ "2014",
+  2015090100 <= game_id & game_id <= 2016012016~ "2015",
+  2016090100 <= game_id & game_id <= 2017012016~ "2016",
+  2017090100 <= game_id & game_id <= 2018012016~ "2017",
+  2018090100 <= game_id & game_id <= 2019012016~ "2018",
+  2019090100 <= game_id & game_id <= 2020012016~ "2019"))
+
+#Filter Out Non-Runs/Passes
+final_data <- final_data %>%
+filter(play_type %in% c('pass', 'run'))
+
