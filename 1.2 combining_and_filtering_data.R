@@ -79,7 +79,3 @@ final_data <- final_data %>%
   2018090100 <= game_id & game_id <= 2019012016~ "2018",
   2019090100 <= game_id & game_id <= 2020012016~ "2019"))
 
-#Filter Out Non-Runs/Passes
-final_data <- final_data %>%
-filter(play_type %in% c('pass', 'run'))
-
