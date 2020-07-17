@@ -1,0 +1,592 @@
+##
+#Data Set Up
+##
+
+#setwd("Moneyball")
+#install.packages("tidyverse")
+library(tidyverse)
+#install.packages("devtools")
+#devtools::install_github(repo = 
+#"maksimhorowitz/nflscrapR")
+
+library(nflscrapR)
+#install.packages("sqldf")
+library(sqldf)
+
+#Thorough Rushing Data 2009-2019
+game_rushing <- read_csv("game_rushing_df.csv")
+game_rushing <- as_tibble(game_rushing)
+
+# read & load all the pbp data from 2009 -2019
+pbp19 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2019.csv"))
+#Add QBR Rank
+pbp19 <-
+  pbp19 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "BAL" ~ 1, 
+  posteam == "KC" ~ 2, posteam == "NO" ~ 3, 
+  posteam == "DAL" ~ 4, posteam == "SEA" ~ 5, 
+  posteam == "DET" ~ 6, posteam == "HOU" ~ 7, 
+  posteam == "MIA" ~ 8, posteam == "TEN" ~ 9, 
+  posteam == "OAK" ~ 10, posteam == "PHI" ~ 11, 
+  posteam == "SF" ~ 12, posteam == "MIN" ~ 13, 
+  posteam == "ATL" ~ 14, posteam == "ARI" ~ 15, 
+  posteam == "TB" ~ 16, posteam == "NE" ~ 17, 
+  posteam == "NYG" ~ 18, posteam == "CLE" ~ 19, 
+  posteam == "GB" ~ 20, posteam == "IND" ~ 21, 
+  posteam == "LAC" ~ 22, posteam == "LA" ~ 23, 
+  posteam == "BUF" ~ 24, posteam == "NYJ" ~ 25, 
+  posteam == "JAX" ~ 26, posteam == "CIN" ~ 27, 
+  posteam == "CHI" ~ 28, posteam == "CAR" ~ 29, 
+  posteam == "DEN" ~ 30, posteam == "PIT" ~ 31, 
+  posteam == "WSH" ~ 32)) %>%
+  ungroup()
+
+pbp18 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2018.csv"))
+#Add QBR Rank
+pbp18 <-
+  pbp18 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "KC" ~ 1, 
+  posteam == "NO" ~ 2, posteam == "CHI" ~ 3, 
+  posteam == "PIT" ~ 4, posteam == "IND" ~ 5, 
+  posteam == "NE" ~ 6, posteam == "LAC" ~ 7, 
+  posteam == "TB" ~ 8, posteam == "ATL" ~ 9, 
+  posteam == "LA" ~ 10, posteam == "SEA" ~ 11, 
+  posteam == "PHI" ~ 12, posteam == "HOU" ~ 13, 
+  posteam == "MIN" ~ 14, posteam == "CIN" ~ 15, 
+  posteam == "GB" ~ 16, posteam == "DAL" ~ 17, 
+  posteam == "CAR" ~ 18, posteam == "TEN" ~ 19, 
+  posteam == "SF" ~ 20, posteam == "DET" ~ 21, 
+  posteam == "CLE" ~ 22, posteam == "BUF" ~ 23, 
+  posteam == "NYG" ~ 24, posteam == "WSH" ~ 25, 
+  posteam == "BAL" ~ 26, posteam == "OAK" ~ 27, 
+  posteam == "NYJ" ~ 28, posteam == "DEN" ~ 29, 
+  posteam == "JAX" ~ 30, posteam == "MIA" ~ 31, 
+  posteam == "ARI" ~ 32)) %>%
+  ungroup()
+
+pbp17 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2017.csv"))
+#Add QBR Rank
+pbp17 <-
+  pbp17 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "PHI" ~ 1, 
+  posteam == "MIN" ~ 2, posteam == "NE" ~ 3, 
+  posteam == "DAL" ~ 4, posteam == "ATL" ~ 5, 
+  posteam == "PIT" ~ 6, posteam == "DET" ~ 7, 
+  posteam == "KC" ~ 8, posteam == "NO" ~ 9, 
+  posteam == "SEA" ~ 10, posteam == "LAC" ~ 11, 
+  posteam == "JAX" ~ 12, posteam == "TEN" ~ 13, 
+  posteam == "BUF" ~ 14, posteam == "WSH" ~ 15, 
+  posteam == "LA" ~ 16, posteam == "NYJ" ~ 17, 
+  posteam == "TB" ~ 18, posteam == "CAR" ~ 19, 
+  posteam == "OAK" ~ 20, posteam == "ARI" ~ 21, 
+  posteam == "NYG" ~ 22, posteam == "BAL" ~ 23, 
+  posteam == "GB" ~ 24, posteam == "CIN" ~ 25, 
+  posteam == "MIA" ~ 26, posteam == "IND" ~ 27, 
+  posteam == "CLE" ~ 28, posteam == "CHI" ~ 29, 
+  posteam == "DEN" ~ 30, posteam == "CLE" ~ 31, 
+  posteam == "SF" ~ 32)) %>%
+  ungroup()
+
+pbp16 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2016.csv"))
+#Add QBR Rank
+pbp16 <-
+  pbp16 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "ATL" ~ 1, 
+  posteam == "NE" ~ 2, posteam == "DAL" ~ 3, 
+  posteam == "GB" ~ 4, posteam == "NO" ~ 5, 
+  posteam == "WSH" ~ 6, posteam == "IND" ~ 7, 
+  posteam == "DET" ~ 8, posteam == "BUF" ~ 9, 
+  posteam == "KC" ~ 10, posteam == "PIT" ~ 11, 
+  posteam == "TB" ~ 12, posteam == "TEN" ~ 13, 
+  posteam == "SD" ~ 14, posteam == "SEA" ~ 15, 
+  posteam == "OAK" ~ 16, posteam == "MIN" ~ 17, 
+  posteam == "ARI" ~ 18, posteam == "BAL" ~ 19, 
+  posteam == "CIN" ~ 20, posteam == "DEN" ~ 21, 
+  posteam == "HOU" ~ 22, posteam == "SF" ~ 23, 
+  posteam == "MIA" ~ 24, posteam == "CAR" ~ 25, 
+  posteam == "PHI" ~ 26, posteam == "NYG" ~ 27, 
+  posteam == "JAX" ~ 28, posteam == "NYJ" ~ 29, 
+  posteam == "LA" ~ 30, posteam == "CLE" ~ 31, 
+  posteam == "CHI" ~ 32)) %>%
+  ungroup()
+
+pbp15 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2015.csv"))
+#Add QBR Rank
+pbp15 <-
+  pbp15 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "ARI" ~ 1, 
+  posteam == "PIT" ~ 2, posteam == "CIN" ~ 3, 
+  posteam == "SEA" ~ 4, posteam == "NE" ~ 5, 
+  posteam == "WSH" ~ 6, posteam == "NO" ~ 7, 
+  posteam == "BUF" ~ 8, posteam == "ATL" ~ 9, 
+  posteam == "NYJ" ~ 10, posteam == "CAR" ~ 11, 
+  posteam == "KC" ~ 12, posteam == "CHI" ~ 13, 
+  posteam == "GB" ~ 14, posteam == "DET" ~ 15, 
+  posteam == "NYG" ~ 16, posteam == "MIN" ~ 17, 
+  posteam == "SD" ~ 18, posteam == "TB" ~ 19, 
+  posteam == "CLE" ~ 20, posteam == "HOU" ~ 21, 
+  posteam == "IND" ~ 22, posteam == "JAX" ~ 23, 
+  posteam == "BAL" ~ 24, posteam == "DEN" ~ 25, 
+  posteam == "TEN" ~ 26, posteam == "MIA" ~ 27, 
+  posteam == "OAK" ~ 28, posteam == "SF" ~ 29, 
+  posteam == "PHI" ~ 30, posteam == "DAL" ~ 31, 
+  posteam == "STL" ~ 32)) %>%
+  ungroup()
+
+pbp14 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2014.csv"))
+#Add QBR Rank
+pbp14 <-
+  pbp14 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "DAL" ~ 1, 
+  posteam == "GB" ~ 2, posteam == "NE" ~ 3, 
+  posteam == "NO" ~ 4, posteam == "DEN" ~ 5, 
+  posteam == "SEA" ~ 6, posteam == "PIT" ~ 7, 
+  posteam == "BAL" ~ 8, posteam == "ATL" ~ 9, 
+  posteam == "SD" ~ 10, posteam == "IND" ~ 11, 
+  posteam == "PHI" ~ 12, posteam == "HOU" ~ 13, 
+  posteam == "NYG" ~ 14, posteam == "MIA" ~ 15, 
+  posteam == "SF" ~ 16, posteam == "CAR" ~ 17, 
+  posteam == "PHI" ~ 18, posteam == "KC" ~ 19, 
+  posteam == "MIN" ~ 20, posteam == "CHI" ~ 21, 
+  posteam == "CIN" ~ 22, posteam == "NYJ" ~ 23, 
+  posteam == "STL" ~ 24, posteam == "DET" ~ 25, 
+  posteam == "BUF" ~ 26, posteam == "OAK" ~ 27, 
+  posteam == "CLE" ~ 28, posteam == "TB" ~ 29, 
+  posteam == "JAX" ~ 30, posteam == "ARI" ~ 31, 
+  posteam == "WSH" ~ 32)) %>%
+  ungroup()
+
+pbp13 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2013.csv"))
+#Add QBR Rank
+pbp13 <-
+  pbp13 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "DEN" ~ 1, 
+  posteam == "SD" ~ 2, posteam == "CHI" ~ 3, 
+  posteam == "PHI" ~ 4, posteam == "NO" ~ 5, 
+  posteam == "ATL" ~ 6, posteam == "SF" ~ 7, 
+  posteam == "SEA" ~ 8, posteam == "CAR" ~ 9, 
+  posteam == "IND" ~ 10, posteam == "NE" ~ 11, 
+  posteam == "DAL" ~ 12, posteam == "GB" ~ 13, 
+  posteam == "TEN" ~ 14, posteam == "PIT" ~ 15, 
+  posteam == "TB" ~ 16, posteam == "CIN" ~ 17, 
+  posteam == "ARI" ~ 18, posteam == "DET" ~ 19, 
+  posteam == "WSH" ~ 20, posteam == "MIA" ~ 21, 
+  posteam == "BAL" ~ 22, posteam == "KC" ~ 23, 
+  posteam == "CLE" ~ 24, posteam == "NYJ" ~ 25, 
+  posteam == "OAK" ~ 26, posteam == "NYG" ~ 27, 
+  posteam == "HOU" ~ 28, posteam == "BUF" ~ 29, 
+  posteam == "JAX" ~ 30, posteam == "CLE" ~ 31, 
+  posteam == "MIN" ~ 32)) %>%
+  ungroup()
+
+pbp12 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2012.csv"))
+#Add QBR Rank
+pbp12 <-
+  pbp12 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "DEN" ~ 1, 
+  posteam == "NE" ~ 2, posteam == "SEA" ~ 3, 
+  posteam == "PIT" ~ 4, posteam == "GB" ~ 5, 
+  posteam == "ATL" ~ 6, posteam == "WSH" ~ 7, 
+  posteam == "NO" ~ 8, posteam == "NYG" ~ 9, 
+  posteam == "DAL" ~ 10, posteam == "IND" ~ 11, 
+  posteam == "HOU" ~ 12, posteam == "DET" ~ 13, 
+  posteam == "CAR" ~ 14, posteam == "STL" ~ 15, 
+  posteam == "MIN" ~ 16, posteam == "BAL" ~ 17, 
+  posteam == "MIA" ~ 18, posteam == "PHI" ~ 19, 
+  posteam == "CIN" ~ 20, posteam == "TB" ~ 21, 
+  posteam == "CHI" ~ 22, posteam == "BUF" ~ 23, 
+  posteam == "OAK" ~ 24, posteam == "SD" ~ 25, 
+  posteam == "TEN" ~ 26, posteam == "JAX" ~ 27, 
+  posteam == "CLE" ~ 28, posteam == "NYJ" ~ 29, 
+  posteam == "KC" ~ 30, posteam == "SF" ~ 31, 
+  posteam == "ARI" ~ 32)) %>%
+  ungroup()
+  
+pbp11 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2011.csv"))
+#Add QBR Rank
+pbp11 <-
+  pbp11 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "GB" ~ 1, 
+  posteam == "NO" ~ 2, posteam == "HOU" ~ 3, 
+  posteam == "NE" ~ 4, posteam == "ATL" ~ 5, 
+  posteam == "DAL" ~ 6, posteam == "PIT" ~ 7, 
+  posteam == "PHI" ~ 8, posteam == "SD" ~ 9, 
+  posteam == "NYG" ~ 10, posteam == "BAL" ~ 11, 
+  posteam == "CHI" ~ 12, posteam == "DET" ~ 13, 
+  posteam == "CAR" ~ 14, posteam == "MIA" ~ 15, 
+  posteam == "SF" ~ 16, posteam == "OAK" ~ 17, 
+  posteam == "TEN" ~ 18, posteam == "BUF" ~ 19, 
+  posteam == "CIN" ~ 20, posteam == "KC" ~ 21, 
+  posteam == "TB" ~ 22, posteam == "SEA" ~ 23, 
+  posteam == "CLE" ~ 24, posteam == "NYJ" ~ 25, 
+  posteam == "WSH" ~ 26, posteam == "DEN" ~ 27, 
+  posteam == "ARI" ~ 28, posteam == "MIN" ~ 29, 
+  posteam == "STL" ~ 30, posteam == "JAX" ~ 31, 
+  posteam == "IND" ~ 32)) %>%
+  ungroup()
+
+pbp10 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2010.csv"))
+# Add QBR Rank
+pbp10 <-
+  pbp10 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "NE" ~ 1, 
+  posteam == "IND" ~ 2, posteam == "ATL" ~ 3, 
+  posteam == "NO" ~ 4, posteam == "PHI" ~ 5, 
+  posteam == "GB" ~ 6, posteam == "TB" ~ 7, 
+  posteam == "PIT" ~ 8, posteam == "SD" ~ 9, 
+  posteam == "JAX" ~ 10, posteam == "HOU" ~ 11, 
+  posteam == "BAL" ~ 12, posteam == "NYG" ~ 13, 
+  posteam == "KC" ~ 14, posteam == "TEN" ~ 15, 
+  posteam == "CIN" ~ 16, posteam == "DEN" ~ 17, 
+  posteam == "DET" ~ 18, posteam == "DAL" ~ 19, 
+  posteam == "SEA" ~ 20, posteam == "BUF" ~ 21, 
+  posteam == "CHI" ~ 22, posteam == "NYJ" ~ 23, 
+  posteam == "OAK" ~ 24, posteam == "WSH" ~ 25, 
+  posteam == "STL" ~ 26, posteam == "MIA" ~ 27, 
+  posteam == "SF" ~ 28, posteam == "MIN" ~ 29, 
+  posteam == "ARI" ~ 30, posteam == "CAR" ~ 31, 
+  posteam == "CLE" ~ 32)) %>%
+  ungroup()
+
+pbp09 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2009.csv"))
+# Add QBR Rank
+pbp09 <-
+  pbp09 %>%
+  group_by(posteam) %>%
+  mutate(posteam_qbr_rank = case_when(posteam == "NO" ~ 1, 
+  posteam == "IND" ~ 2, posteam == "SD" ~ 3, 
+  posteam == "MIN" ~ 4, posteam == "NE" ~ 5, 
+  posteam == "HOU" ~ 6, posteam == "NYG" ~ 7, 
+  posteam == "TEN" ~ 8, posteam == "GB" ~ 9, 
+  posteam == "PIT" ~ 10, posteam == "ATL" ~ 11, 
+  posteam == "ARI" ~ 12, posteam == "DAL" ~ 13, 
+  posteam == "CIN" ~ 14, posteam == "BAL" ~ 15, 
+  posteam == "PHI" ~ 16, posteam == "DEN" ~ 17, 
+  posteam == "WAS" ~ 18, posteam == "JAX" ~ 19, 
+  posteam == "MIA" ~ 20, posteam == "CHI" ~ 21, 
+  posteam == "SF" ~ 22, posteam == "CLE" ~ 23, 
+  posteam == "CAR" ~ 24, posteam == "DET" ~ 25, 
+  posteam == "TB" ~ 26, posteam == "BUF" ~ 27, 
+  posteam == "SEA" ~ 28, posteam == "NYJ" ~ 29, 
+  posteam == "STL" ~ 30, posteam == "KC" ~ 31, 
+  posteam == "OAK" ~ 32)) %>%
+  ungroup()
+
+
+pbp_all <- rbind(pbp19, pbp18, pbp17, pbp16, pbp15, pbp14, pbp13, pbp12, pbp11, pbp10, pbp09)
+
+pbp_all <- as_tibble(pbp_all)
+
+
+game_data19 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2019.csv"))
+game_data18 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2018.csv"))
+game_data17 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2017.csv"))
+game_data16 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2016.csv"))
+game_data15 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2015.csv"))
+game_data14 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2014.csv"))
+game_data13 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2013.csv"))
+game_data12 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2012.csv"))
+game_data11 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2011.csv"))
+game_data10 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2010.csv"))
+game_data09 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2009.csv"))
+
+
+game_data_all <- rbind(game_data09, game_data10, game_data11, game_data12, game_data13, game_data14, game_data15, game_data16, game_data17, game_data18, game_data19) 
+
+
+##
+#Make Columns And Filter
+##
+
+pbp_all <- pbp_all %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 'ydstogo', 
+         'ydsnet', 'yards_gained', 'play_type', 'td_team', 
+         'yards_gained', 'posteam_qbr_rank',
+         'third_down_converted', 'third_down_failed',
+          'fourth_down_converted', 'fourth_down_failed',
+          'interception', 'fumble_lost', 'pass_touchdown',
+           'penalty_team', 'penalty_yards', 'total_home_rush_wpa',
+          'total_away_rush_wpa', 'total_home_pass_wpa',
+          'total_away_pass_wpa', 'score_differential',
+          'rush_touchdown', 'wpa', 'first_down_rush',
+          'first_down_pass')
+
+game_data_all <-
+  game_data_all %>%
+  select('game_id', 'home_score', 'away_score')
+
+
+#Combine Data
+final_data  <-
+  pbp_all %>%
+  inner_join(game_data_all, by = "game_id")
+
+#Add Season Column
+final_data <- final_data %>%
+  mutate("season" = case_when(
+  2009091000 <= game_id & game_id <= 2010010316~ "2009",
+  2010090900 <= game_id & game_id <= 2011010216~ "2010",
+  2011090800 <= game_id & game_id <= 2012010116~ "2011",
+  2012090500 <= game_id & game_id <= 2012123016~ "2012",
+  2013090500 <= game_id & game_id <= 2014012016~ "2013",
+  2014090100 <= game_id & game_id <= 2015012016~ "2014",
+  2015090100 <= game_id & game_id <= 2016012016~ "2015",
+  2016090100 <= game_id & game_id <= 2017012016~ "2016",
+  2017090100 <= game_id & game_id <= 2018012016~ "2017",
+  2018090100 <= game_id & game_id <= 2019012016~ "2018",
+  2019090100 <= game_id & game_id <= 2020012016~ "2019"))
+
+#Filter Out Non-Runs/Passes
+final_data <- final_data %>%
+filter(play_type %in% c('pass', 'run'))
+
+#Removing Incorrect Names
+final_data$home_team[final_data$home_team == 
+                       'SD'] <- 'LAC'
+final_data$home_team[final_data$home_team == 
+                       'JAC'] <- 'JAX'
+final_data$home_team[final_data$home_team == 
+                       'STL'] <- 'LAR'
+final_data$home_team[final_data$home_team == 
+                       'LA'] <- 'LAR'
+
+final_data$away_team[final_data$away_team == 
+                       'SD'] <- 'LAC'
+final_data$away_team[final_data$away_team == 
+                       'JAC'] <- 'JAX'
+final_data$away_team[final_data$away_team == 
+                       'STL'] <- 'LAR'
+final_data$away_team[final_data$away_team == 
+                       'LA'] <- 'LAR'
+
+final_data$posteam[final_data$posteam == 
+                     'SD'] <- 'LAC'
+final_data$posteam[final_data$posteam == 
+                     'JAC'] <- 'JAX'
+final_data$posteam[final_data$posteam == 
+                     'STL'] <- 'LAR'
+final_data$posteam[final_data$posteam == 
+                     'LA'] <- 'LAR'
+
+
+#Add Winning Team Column
+final_data <- final_data %>%
+  mutate("winning_team" = case_when(
+    home_score > away_score ~ home_team,
+    home_score < away_score ~ away_team,
+    home_score == away_score ~ "tie"))%>%
+  mutate("losing_team" = case_when(
+    home_score < away_score ~ home_team,
+    home_score > away_score ~ away_team,
+    home_score == away_score ~ "tie"))
+
+
+#Eliminate two games with faulty data
+final_data <-
+  final_data %>%
+  filter(play_type == 'run' | play_type == 'pass') %>%
+  filter(game_id != '2013112401') %>%
+  filter(game_id != '2013120101')
+
+#Add Point Differential Column
+final_data <- final_data %>%
+  mutate(home_point_diff = 
+    home_score - away_score)
+
+#Filter Out Blowouts
+final_data <- final_data %>%
+  filter(home_point_diff > -33 &
+  home_point_diff < 33)
+
+#Filter Out Last Two Minutes of the Half
+final_data <- final_data %>%
+  filter(120 <= half_seconds_remaining)
+
+#Split Into Passing Data and Running Data
+passing_data <- final_data %>%
+  filter(play_type == 'pass')%>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 'ydstogo', 
+         'ydsnet', 'yards_gained', 'play_type', 'td_team', 
+         'yards_gained', 'posteam_qbr_rank',
+         'third_down_converted', 'third_down_failed',
+         'fourth_down_converted', 'fourth_down_failed',
+         'interception', 'fumble_lost', 'pass_touchdown',
+         'penalty_team', 'penalty_yards', 'total_home_rush_wpa',
+         'total_away_rush_wpa', 'total_home_pass_wpa',
+         'total_away_pass_wpa', 'score_differential',
+         'rush_touchdown', 'wpa', 'first_down_rush',
+         'first_down_pass', 'season', 'home_point_diff',
+         'winning_team', 'season')
+
+rushing_data <- final_data %>%
+  filter(play_type == 'run')%>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+  'game_date', 'half_seconds_remaining', 'down',
+  'ydstogo', 'ydsnet', 'yards_gained', 'td_team', 
+  'yards_gained', 'posteam_qbr_rank', 'home_point_diff',
+  'winning_team', 'season')
+
+#Create 1st & 10 Data
+first_and_ten <- final_data %>%
+  filter(down == 1, ydstogo == 10) %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+  'game_date', 'half_seconds_remaining', 'ydsnet', 
+  'yards_gained', 'td_team', 'play_type', 'yards_gained', 
+  'posteam_qbr_rank', 'home_point_diff', 'winning_team', 
+  'season')
+
+##
+#Preliminary Graphing
+##
+
+rushing <- rushing_data %>%
+  group_by(game_id) %>%
+  filter(winning_team == posteam) %>%
+  mutate(rushing_yards_winning_team = sum(yards_gained)) %>%
+  mutate(ypc = mean(yards_gained)) %>%
+  select(game_id, rushing_yards_winning_team, ypc,
+  season)
+
+rushing <- rushing[!duplicated(rushing$game_id), ]
+
+passing <- passing_data %>%
+  group_by(game_id) %>%
+  filter(winning_team == posteam) %>%
+  mutate(passing_yards_winning_team = sum(yards_gained)) %>%
+  mutate(ypa = mean(yards_gained)) %>%
+  select(game_id, passing_yards_winning_team, ypa, 
+         season)
+
+passing <- passing[!duplicated(passing$game_id), ]
+
+final_data_per_game <- final_data
+final_data_per_game <- final_data_per_game[
+!duplicated(final_data_per_game$game_id), ]
+
+final_data_per_game <-
+  final_data_per_game %>%
+  filter(winning_team != "tie") %>%
+  select('game_id', 'home_team', 'away_team', 
+  'game_date', 'home_score', 'away_score', 
+  'winning_team', 'losing_team', 'season')
+
+final_data_per_game <-
+  final_data_per_game %>%
+  inner_join(rushing, by = 'game_id') %>%
+  inner_join(passing, by = 'game_id')
+
+final_data_per_game <-
+  final_data_per_game %>%
+  mutate(percentage_yards_rushing = 
+  rushing_yards_winning_team/
+  (rushing_yards_winning_team + 
+  passing_yards_winning_team))
+
+ggplot(data = final_data_per_game)+ 
+  geom_point(aes(x = rushing_yards_winning_team, 
+   y = passing_yards_winning_team, color = winning_team,
+    alpha = 0.2)) +
+  labs(x = "Rushing Yards", y = "Passing Yards") + 
+  geom_abline(intercept = 297.8966416, 
+      slope = -0.4396726, color = "black")
+
+cor(final_data_per_game$ypc, final_data_per_game$ypa)
+
+ggplot(data = final_data_per_game) + 
+  geom_point(aes(x = ypc, y = ypa, color = 
+      winning_team, alpha = 0.2)) +
+  geom_abline(intercept = 7.32429203, 
+      slope = -0.03153615, color = "black")
+
+##
+#Win % vs Rushing %
+##
+
+team_stats <- 
+  final_data_per_game %>%
+  select(home_team)
+
+team_stats <- team_stats[!duplicated(
+  team_stats$home_team), ]
+colnames(team_stats) <- c("Team")
+
+win_tbl <- as.data.frame(table(
+  final_data_per_game$winning_team))
+colnames(win_tbl) <- c("Team", "Wins")
+
+loss_tbl <- as.data.frame(table(
+  final_data_per_game$losing_team))
+colnames(loss_tbl) <- c("Team", "Losses")
+
+rushing_yards_per_team_tbl <- 
+  final_data%>%
+  group_by(home_team) %>%
+  group_by(season)%>%
+  filter(play_type == 'run') %>%
+  mutate(rushing_yards_per_team_tbl = sum(yards_gained)) %>%
+  select('home_team', 'rushing_yards_per_team_tbl')
+
+rushing_yards_per_team_tbl <- 
+  rushing_yards_per_team_tbl[
+  !duplicated(rushing_yards_per_team_tbl$home_team), ]
+
+
+passing_yards_per_team_tbl <- 
+  final_data %>%
+  group_by(home_team) %>%
+  filter(play_type == 'pass') %>%
+  mutate(passing_yards_per_team_tbl = sum(yards_gained)) %>%
+  select('home_team', 'passing_yards_per_team_tbl')
+
+passing_yards_per_team_tbl <- 
+  passing_yards_per_team_tbl[
+    !duplicated(passing_yards_per_team_tbl$home_team), ]
+
+
+team_stats <-
+  team_stats %>%
+  inner_join(win_tbl, by = "Team") %>%
+  inner_join(loss_tbl, by = "Team")
+
+
+team_stats <-
+  team_stats %>%
+  mutate("rushing_yards_per_team_tbl" = 
+  rushing_yards_per_team_tbl$rushing_yards_per_team_tbl) %>%
+  mutate("passing_yards_per_team_tbl" =
+  passing_yards_per_team_tbl$passing_yards_per_team_tbl)
+
+
+team_stats <-
+  team_stats %>%
+  mutate("winning_percentage" = (Wins)/(Wins+Losses)) %>%
+  mutate("percentage_yards_rushing" = 
+  rushing_yards_per_team_tbl/
+  (rushing_yards_per_team_tbl+ 
+     passing_yards_per_team_tbl))
+
+cor(team_stats$percentage_yards_rushing, 
+    team_stats$winning_percentage)
+
+ggplot(data = team_stats) + 
+  geom_point(aes(x = percentage_yards_rushing, 
+        y = winning_percentage, color = Team)) +
+  labs(x = "Percentage Yards Rushing", y = 
+         "Winning Percentage") + 
+  geom_abline(intercept = 0.8119663, slope = -0.9474407, 
+              color = "black")
+
+
+
