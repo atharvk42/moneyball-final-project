@@ -504,14 +504,14 @@ team_season_passing <- read_csv("team_season_passing.csv")
 team_season_passing <- team_season_passing %>%
   select(Season, Player_Name, Attempts, Completions,
   Comp_Perc, Total_Yards, Interceptions, TDs, TD_to_Int,
-  Total_EPA, EPA_per_Att)
+  Total_EPA, EPA_per_Att, Team)
 
 team_season_rushing <- read_csv("team_season_rushing.csv")
 
 team_season_rushing <- team_season_rushing %>%
   select(Season, Player_Name, Carries,  Total_Yards, 
          Yards_per_Car, Fumbles, TDs, TD_to_Fumbles,
-         Total_EPA, EPA_per_Car)
+         Total_EPA, EPA_per_Car, Team)
 
 
 
@@ -526,4 +526,3 @@ write_csv(rushing_data, "rushing_data")
 write_csv(final_data_per_game, "final_data_per_game")
 write_csv(team_season_passing, "team_season_passing")
 write_csv(team_season_rushing, "team_season_rushing")
-
