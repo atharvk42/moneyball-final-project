@@ -456,6 +456,49 @@ first_and_ten <- final_data %>%
          'first_down_pass', 'season', 'home_point_diff',
          'winning_team', 'season')
 
+rushing <- rushing_data %>%
+  group_by(game_id) %>%
+  filter(winning_team == posteam) %>%
+  mutate(rushing_yards_winning_team = sum(yards_gained)) %>%
+  mutate(ypc = mean(yards_gained)) %>%
+  select(game_id, rushing_yards_winning_team, ypc,
+         season)
+
+rushing <- rushing[!duplicated(rushing$game_id), ]
+
+passing <- passing_data %>%
+  group_by(game_id) %>%
+  filter(winning_team == posteam) %>%
+  mutate(passing_yards_winning_team = sum(yards_gained)) %>%
+  mutate(ypa = mean(yards_gained)) %>%
+  select(game_id, passing_yards_winning_team, ypa, 
+         season)
+
+passing <- passing[!duplicated(passing$game_id), ]
+
+final_data_per_game <- final_data
+final_data_per_game <- final_data_per_game[
+  !duplicated(final_data_per_game$game_id), ]
+
+final_data_per_game <-
+  final_data_per_game %>%
+  filter(winning_team != "tie") %>%
+  select('game_id', 'home_team', 'away_team', 
+         'game_date', 'home_score', 'away_score', 
+         'winning_team', 'losing_team', 'season')
+
+final_data_per_game <-
+  final_data_per_game %>%
+  inner_join(rushing, by = 'game_id') %>%
+  inner_join(passing, by = 'game_id')
+
+final_data_per_game <-
+  final_data_per_game %>%
+  mutate(percentage_yards_rushing = 
+           rushing_yards_winning_team/
+           (rushing_yards_winning_team + 
+              passing_yards_winning_team))
+
 ##
 #Write Out New Data Files For Separate Page
 ##
@@ -464,3 +507,4 @@ write_csv(final_data, "final_data")
 write_csv(first_and_ten, "first_and_ten")
 write_csv(final_data, "passing_data")
 write_csv(rushing_data, "rushing_data")
+write_csv(final_data_per_game, "final_data_per_game")
