@@ -55,10 +55,10 @@ team_wins_per_season <- function(pbp_year, game_data_year) {
     count('winning_team')
   
   colnames(final_data_per_game) <- c("Team", "Wins")
- test <- final_data[1,"game_id"]
+ game1_id <- final_data[1,"game_id"]
  
  # checking if it's 2017 to add Brown's data point since they didn't win a single game in 2017
- if(test == "2017090700") {
+ if(game1_id == "2017090700") {
    final_data_per_game <- 
      final_data_per_game %>%
      rbind(tibble(Team = "CLE", Wins = "0")) %>%
