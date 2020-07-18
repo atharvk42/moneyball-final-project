@@ -1,0 +1,223 @@
+# Adding o-line ratings: ALY is adjusted line yards and ASR is adjusted sack rate
+# Paste this code AFTER you have downloaded all of the excel csv files I put in github
+# Past this code RIGHT BEFORE this linein your code: pbp_all <- rbind(pbp19, pbp18, pbp17, pbp16, pbp15, pbp14, pbp13, pbp12, pbp11, pbp10, pbp09)
+
+ALY_19 <- read_csv(file = "data/ALY_19.csv")
+ALY_19 <-
+  ALY_19 %>%
+  select(posteam, ALY)
+pbp19 <-
+  pbp19 %>%
+  group_by(posteam) %>%
+inner_join(ALY_19, by = 'posteam') %>%
+  ungroup()
+
+ASR_19 <- read_csv(file = "data/ASR_19.csv")
+ASR_19 <-
+  ASR_19 %>%
+  select(posteam, ASR)
+pbp19 <-
+  pbp19 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_19, by = 'posteam') %>%
+  ungroup()
+## 
+ALY_18 <- read_csv(file = "data/ALY_18.csv")
+ALY_18 <-
+  ALY_18 %>%
+  select(posteam, ALY)
+pbp18 <-
+  pbp18 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_18, by = 'posteam') %>%
+  ungroup()
+
+ASR_18 <- read_csv(file = "data/ASR_18.csv")
+ASR_18 <-
+  ASR_18 %>%
+  select(posteam, ASR)
+pbp18 <-
+  pbp18 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_18, by = 'posteam') %>%
+  ungroup()
+##
+ALY_17 <- read_csv(file = "data/ALY_17.csv")
+ALY_17 <-
+  ALY_17 %>%
+  select(posteam, ALY)
+pbp17 <-
+  pbp17 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_17, by = 'posteam') %>%
+  ungroup()
+
+ASR_17 <- read_csv(file = "data/ASR_17.csv")
+ASR_17 <-
+  ASR_17 %>%
+  select(posteam, ASR)
+pbp17 <-
+  pbp17 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_17, by = 'posteam') %>%
+  ungroup()
+##
+ALY_16 <- read_csv(file = "data/ALY_16.csv")
+ALY_16 <-
+  ALY_16 %>%
+  select(posteam, ALY)
+pbp16 <-
+  pbp16 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_16, by = 'posteam') %>%
+  ungroup()
+
+ASR_16 <- read_csv(file = "data/ASR_16.csv")
+ASR_16 <-
+  ASR_16 %>%
+  select(posteam, ASR)
+pbp16 <-
+  pbp16 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_16, by = 'posteam') %>%
+  ungroup()
+##
+ALY_15 <- read_csv(file = "data/ALY_15.csv")
+ALY_15 <-
+  ALY_15 %>%
+  select(posteam, ALY)
+pbp15 <-
+  pbp15 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_15, by = 'posteam') %>%
+  ungroup()
+
+ASR_15 <- read_csv(file = "data/ASR_15.csv")
+ASR_15 <-
+  ASR_15 %>%
+  select(posteam, ASR)
+pbp15 <-
+  pbp15 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_15, by = 'posteam') %>%
+  ungroup()
+##
+ALY_14 <- read_csv(file = "data/ALY_14.csv")
+ALY_14 <-
+  ALY_14 %>%
+  select(posteam, ALY)
+pbp14 <-
+  pbp14 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_14, by = 'posteam') %>%
+  ungroup()
+
+ASR_14 <- read_csv(file = "data/ASR_14.csv")
+ASR_14 <-
+  ASR_14 %>%
+  select(posteam, ASR)
+pbp14 <-
+  pbp14 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_14, by = 'posteam') %>%
+  ungroup()
+##
+ALY_13 <- read_csv(file = "data/ALY_13.csv")
+ALY_13 <-
+  ALY_13 %>%
+  select(posteam, ALY)
+pbp13 <-
+  pbp13 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_13, by = 'posteam') %>%
+  ungroup()
+
+ASR_13 <- read_csv(file = "data/ASR_13.csv")
+ASR_13 <-
+  ASR_13 %>%
+  select(posteam, ASR)
+pbp13 <-
+  pbp13 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_13, by = 'posteam') %>%
+  ungroup()
+##
+ALY_12 <- read_csv(file = "data/ALY_12.csv")
+ALY_12 <-
+  ALY_12 %>%
+  select(posteam, ALY)
+pbp12 <-
+  pbp12 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_12, by = 'posteam') %>%
+  ungroup()
+
+ASR_12 <- read_csv(file = "data/ASR_12.csv")
+ASR_12 <-
+  ASR_12 %>%
+  select(posteam, ASR)
+pbp12 <-
+  pbp12 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_12, by = 'posteam') %>%
+  ungroup()
+##
+ALY_11 <- read_csv(file = "data/ALY_11.csv")
+ALY_11 <-
+  ALY_11 %>%
+  select(posteam, ALY)
+pbp11 <-
+  pbp11 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_11, by = 'posteam') %>%
+  ungroup()
+
+ASR_11 <- read_csv(file = "data/ASR_11.csv")
+ASR_11 <-
+  ASR_11 %>%
+  select(posteam, ASR)
+pbp11 <-
+  pbp11 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_11, by = 'posteam') %>%
+  ungroup()
+##
+ALY_10 <- read_csv(file = "data/ALY_10.csv")
+ALY_10 <-
+  ALY_10 %>%
+  select(posteam, ALY)
+pbp10 <-
+  pbp10 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_10, by = 'posteam') %>%
+  ungroup()
+
+ASR_10 <- read_csv(file = "data/ASR_10.csv")
+ASR_10 <-
+  ASR_10 %>%
+  select(posteam, ASR)
+pbp10 <-
+  pbp10 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_10, by = 'posteam') %>%
+  ungroup()
+##
+ALY_09 <- read_csv(file = "data/ALY_09.csv")
+ALY_09 <-
+  ALY_09 %>%
+  select(posteam, ALY)
+pbp09 <-
+  pbp09 %>%
+  group_by(posteam) %>%
+  inner_join(ALY_09, by = 'posteam') %>%
+  ungroup()
+
+ASR_09 <- read_csv(file = "data/ASR_09.csv")
+ASR_09 <-
+  ASR_09 %>%
+  select(posteam, ASR)
+pbp09 <-
+  pbp09 %>%
+  group_by(posteam) %>%
+  inner_join(ASR_09, by = 'posteam') %>%
+  ungroup()
