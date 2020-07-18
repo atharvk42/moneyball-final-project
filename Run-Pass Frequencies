@@ -1,0 +1,61 @@
+run_penalty_off <- pbp_all %>% filter(!is.na(penalty_team) & penalty_team == posteam & play_type == "run")
+run_penalty_off <- nrow(run_penalty_off)/nrow(rushing_data)
+run_penalty_off
+
+run_penalty_def <-pbp_all %>% filter(!is.na(penalty_team) & penalty_team != posteam & play_type == "run")
+run_penalty_def <- nrow(run_penalty_def)/nrow(rushing_data)
+run_penalty_def
+
+pass_penalty_off <- pbp_all %>% filter(!is.na(penalty_team) & penalty_team == posteam & play_type == "pass")
+pass_penalty_off <- nrow(pass_penalty_off)/nrow(passing_data)
+pass_penalty_off
+
+pass_penalty_def <- pbp_all %>% filter(!is.na(penalty_team) & penalty_team != posteam & play_type == "pass")
+pass_penalty_def <- nrow(pass_penalty_def)/nrow(passing_data)
+pass_penalty_def
+
+first_down_rush_success <- pbp_all %>% filter(play_type == "run")
+first_down_rush_success <- first_down_rush_success %>% group_by(ydstogo)
+first_down_rush_success <- first_down_rush_success %>% mutate(first_grouped = mean(first_down_rush)) %>%
+ungroup()
+first_down_rush_success %>% ggplot() +
+  geom_point(aes(x = ydstogo, y = first_grouped)) +
+  labs(x = "Yards to go", y = "First down rush")
+log_first_down <- glm(first_grouped~ydstogo, family = binomial, data = first_down_rush_success)
+first_success_preds <- first_down_rush_success %>% data_grid(ydstogo) %>%
+  add_predictions(model = log_first_down, type = "response", var = "predicted_success")
+ggplot(data = first_success_preds) +
+  geom_line(mapping = aes(x = ydstogo, y = predicted_success)) +
+  labs(x = "Yards to go", y = "First down rush") +
+xlim(c(1,20))
+
+first_down_pass_success <- pbp_all %>% filter(play_type == "pass")
+first_down_pass_success <- first_down_pass_success %>% group_by(ydstogo)
+first_down_pass_success <- first_down_pass_success %>% mutate(first_grouped = mean(first_down_pass)) %>%
+  ungroup()
+first_down_pass_success %>% ggplot() +
+  geom_point(aes(x = ydstogo, y = first_grouped)) +
+  labs(x = "Yards to go", y = "First down pass") 
+  log_pass_first <- glm(first_grouped~ydstogo, family = binomial, data = first_down_pass_success)
+first_pass_preds <- first_down_pass_success %>% data_grid(ydstogo) %>%
+  add_predictions(model = log_pass_first, type = "response", var = "predicted_success")
+ggplot(data = first_pass_preds) +
+  geom_line(mapping = aes(x = ydstogo, y = predicted_success)) +
+  labs(x = "Yards to go", y = "First down pass")
+  xlim(c(1,20))
+
+first_ten_run <- first_and_ten %>% filter(play_type == "run") %>%
+  group_by(yards_gained) %>% mutate(yards_grouped = sum(yards_gained==c(-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25))) %>%
+ungroup()
+ggplot(data = first_ten_run) +
+  geom_point(mapping = aes(x = yards_gained, y = yards_grouped/66677)) +
+  labs(x = "Yards gained rushing on 1st & 10", y = "Frequency") +
+  xlim(c(-5, 25))
+
+first_ten_pass <- first_and_ten %>% filter(play_type == "pass") %>%
+  group_by(yards_gained) %>% mutate(yards_grouped = sum(yards_gained == c(-5, -4, -3, -2, -1, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25))) %>%
+  ungroup()
+ggplot(data = first_ten_pass) +
+  geom_point(mapping = aes(x = yards_gained, y = yards_grouped/56550)) +
+  labs(x = "Yards gained passing on 1st & 10", y = "Frequency") +
+  xlim(c(-5, 25))
