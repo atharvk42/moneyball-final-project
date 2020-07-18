@@ -499,6 +499,22 @@ final_data_per_game <-
            (rushing_yards_winning_team + 
               passing_yards_winning_team))
 
+team_season_passing <- read_csv("team_season_passing.csv")
+
+team_season_passing <- team_season_passing %>%
+  select(Season, Player_Name, Attempts, Completions,
+  Comp_Perc, Total_Yards, Interceptions, TDs, TD_to_Int,
+  Total_EPA, EPA_per_Att)
+
+team_season_rushing <- read_csv("team_season_rushing.csv")
+
+team_season_rushing <- team_season_rushing %>%
+  select(Season, Player_Name, Carries,  Total_Yards, 
+         Yards_per_Car, Fumbles, TDs, TD_to_Fumbles,
+         Total_EPA, EPA_per_Car)
+
+
+
 ##
 #Write Out New Data Files For Separate Page
 ##
@@ -508,3 +524,6 @@ write_csv(first_and_ten, "first_and_ten")
 write_csv(final_data, "passing_data")
 write_csv(rushing_data, "rushing_data")
 write_csv(final_data_per_game, "final_data_per_game")
+write_csv(team_season_passing, "team_season_passing")
+write_csv(team_season_rushing, "team_season_rushing")
+
