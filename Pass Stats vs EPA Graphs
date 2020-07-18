@@ -1,0 +1,92 @@
+##
+#Simple Plots of Pass Stats vs EPA
+##
+
+#TD:Interceptions (BAD Apparently)
+ggplot(data = team_season_passing) + 
+  geom_point(aes(x = TD_to_Int, 
+                 y = Total_EPA, alpha = 0.2))+
+  geom_abline(intercept = 1.910374,
+              slope = 35.321978, color = "blue")
+
+fit <- lm(formula = Total_EPA ~ TD_to_Int,  
+          data =  team_season_passing)
+fit[["coefficients"]]
+#(Intercept)   TD_to_Int 
+#1.910374   35.321978 
+
+cor(team_season_passing$TD_to_Int, 
+    team_season_passing$Total_EPA)
+#NA
+
+
+#TD (GREAT BUT USELESS)
+ggplot(data = team_season_passing) + 
+  geom_point(aes(x = TDs, 
+                 y = Total_EPA, alpha = 0.2))+
+  geom_abline(intercept = -109.889652,
+              slope = 6.984856, color = "blue")
+
+fit <- lm(formula = Total_EPA ~ TDs,  
+          data =  team_season_passing)
+fit[["coefficients"]]
+#(Intercept)         TDs 
+#-109.889652    6.984856
+
+cor(team_season_passing$TDs, 
+    team_season_passing$Total_EPA)
+#.7395
+
+#Interceptions (EH)
+ggplot(data = team_season_passing) + 
+  geom_point(aes(x = Interceptions, 
+                 y = Total_EPA, alpha = 0.2))
+
+#Total Yards (Great)
+ggplot(data = team_season_passing) + 
+  geom_point(aes(x = Total_Yards, 
+                 y = Total_EPA, alpha = 0.2))+
+  geom_abline(intercept = -261.63817694,
+              slope = 0.08521461, color = "blue")
+
+fit <- lm(formula = Total_EPA ~ Total_Yards,  
+          data =  team_season_passing)
+fit[["coefficients"]]
+#  (Intercept)   Total_Yards 
+#-261.63817694    0.08521461 
+
+cor(team_season_passing$Total_Yards, 
+    team_season_passing$Total_EPA)
+#.736
+
+#Completion_Percentage (Very Significant)
+ggplot(data = team_season_passing) + 
+  geom_point(aes(x = Comp_Perc, 
+                 y = Total_EPA, alpha = 0.2))+
+  geom_abline(intercept = -558.090,
+              slope = 1025.6854, color = "blue")
+
+fit <- lm(formula = Total_EPA ~ Comp_Perc,  
+          data =  team_season_passing)
+fit[["coefficients"]]
+#(Intercept)   Comp_Perc 
+#-558.0902   1025.6854 
+
+cor(team_season_passing$Comp_Perc, 
+    team_season_passing$Total_EPA)
+#.658
+
+##
+#PRELIMINARY CONCLUSIONS
+##
+#It immediately becomes clear that passing is inherently far more important than rushing.
+#When one examines the best passing EPA seasons versus rushing, passing is nearly four times more valuable.
+#That same data trend of passers adding more value than rushers continues throughout. 
+#Tomorrow I will do some box plots to elaborate on this significance of passing doing more than rushing.
+
+#Less important
+#In addition, it looks like a few variables are the biggest determinants of epa.
+#SIGNIFICANT VARIABLES = YPC, Passing Yards, Pass TDs, Comp %. Maybe more but those are the big ones.
+#However, those are all fairly obviously valuable so I am not sure what to do with them.
+
+
