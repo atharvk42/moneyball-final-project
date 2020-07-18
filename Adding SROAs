@@ -1,0 +1,12 @@
+#Add columns for rushing SROA (success rate over average) using single season and all season averages
+team_season_rushing <- team_season_rushing %>% group_by(Season) %>%
+  mutate(mean_success_season = mean(Success_Rate)) %>%
+  group_by(Season) %>% mutate(SROA_season = Success_Rate/mean_success_season) %>%
+  ungroup()
+
+
+#Add columns for passing SROA (success rate over average) using single season and all season averages
+team_season_passing <- team_season_passing %>% group_by(Season) %>%
+  mutate(mean_success_season = mean(Success_Rate)) %>%
+  group_by(Season) %>% mutate(SROA_season = Success_Rate/mean_success_season) %>%
+  ungroup()
