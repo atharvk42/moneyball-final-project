@@ -254,5 +254,47 @@ cor(team_season_passing$Comp_Perc,
 #SIGNIFICANT VARIABLES = YPC, Passing Yards, Pass TDs, Comp %. Maybe more but those are the big ones.
 #However, those are all fairly obviously valuable so I am not sure what to do with them.
 
+##EPA/PLAY HISOGRAMS
+#EPA/PASS ATTEMPT
+summarise(team_season_passing, mean(EPA_per_Att))
+#0.134
+
+ggplot(data = team_season_passing) +
+  geom_histogram(aes(x=EPA_per_Att), 
+                 binwidth = .05)+
+  geom_vline(xintercept = 0.134)+
+  labs(title = "Passing EPA Distribution")
+
+#EPA/CARRY
+summarise(team_season_rushing, mean(EPA_per_Car))
+#-0.0645
+
+ggplot(data = team_season_rushing) +
+  geom_histogram(aes(x=EPA_per_Car), 
+                 binwidth = .03)+
+  geom_vline(xintercept = -0.0645)+
+  labs(title = "Rushing EPA Distribution")
+
+#PASSING EPA
+summarise(team_season_passing, mean(Total_EPA))
+#75.3
+
+ggplot(data = team_season_passing) +
+  geom_histogram(aes(x=Total_EPA), 
+                 binwidth = 30)+
+  geom_vline(xintercept = 75.3)+
+  labs(title = "Passing EPA Distribution")
+
+#RUSHING EPA
+summarise(team_season_rushing, mean(Total_EPA))
+#-25.9
+
+ggplot(data = team_season_rushing) +
+  geom_histogram(aes(x=Total_EPA), 
+                 binwidth = 15)+
+  geom_vline(xintercept = -25.9)+
+  labs(title = "Rushing EPA Distribution")
+
+
 
 
