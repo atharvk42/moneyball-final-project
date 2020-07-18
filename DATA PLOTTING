@@ -127,3 +127,38 @@ cor(team_stats$ypa, team_stats$winning_percentage)
 fit <- lm(formula = winning_percentage ~ ypc,  data =  team_stats)
 
 fit[["coefficients"]]
+
+
+##
+#Simple Plots of Stats vs EPA
+##
+
+#TD:FUMBLE (OK)
+ggplot(data = team_season_rushing) + 
+  geom_point(aes(x = TD_to_Fumbles, 
+    y = Total_EPA, alpha = 0.2))+
+  xlim(0,5)
+
+#TD (OK)
+ggplot(data = team_season_rushing) + 
+  geom_point(aes(x = TDs, 
+    y = Total_EPA, alpha = 0.2))
+
+#YPC (GREAT)
+#Remove bad data (O YPC)
+ggplot(data = team_season_rushing) + 
+  geom_point(aes(x = Yards_per_Car, 
+    y = Total_EPA, alpha = 0.2))+
+    geom_abline(intercept = -60.559430, 
+    slope = 8.195768, color = "blue")
+
+fit <- lm(formula = Total_EPA ~ Yards_per_Car,  
+      data =  team_season_rushing)
+fit[["coefficients"]]
+
+
+
+#Total Yards (Not Great)
+ggplot(data = team_season_rushing) + 
+  geom_point(aes(x = Total_Yards, 
+                 y = Total_EPA, alpha = 0.2))
