@@ -15,7 +15,6 @@ library(sqldf)
 
 #Thorough Rushing Data 2009-2019
 game_rushing <- read_csv("game_rushing_df.csv")
-game_rushing <- as_tibble(game_rushing)
 
 # read & load all the pbp data from 2009 -2019
 pbp19 <- read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/play_by_play_data/regular_season/reg_pbp_2019.csv"))
@@ -285,8 +284,6 @@ pbp09 <-
 
 pbp_all <- rbind(pbp19, pbp18, pbp17, pbp16, pbp15, pbp14, pbp13, pbp12, pbp11, pbp10, pbp09)
 
-pbp_all <- as_tibble(pbp_all)
-
 
 game_data19 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2019.csv"))
 game_data18 <-read_csv(url("https://github.com/ryurko/nflscrapR-data/raw/master/games_data/regular_season/reg_games_2018.csv"))
@@ -418,6 +415,35 @@ passing_data <- final_data %>%
   filter(play_type == 'pass')%>%
   select('game_id', 'home_team', 'away_team', 'posteam', 
          'game_date', 'half_seconds_remaining', 'down', 'ydstogo', 
+         'ydsnet', 'yards_gained', 'td_team', 
+         'yards_gained', 'posteam_qbr_rank',
+         'third_down_converted', 'third_down_failed',
+         'fourth_down_converted', 'fourth_down_failed',
+         'interception', 'pass_touchdown',
+         'penalty_team', 'penalty_yards',
+         'total_home_pass_wpa', 'total_away_pass_wpa', 
+         'score_differential', 'wpa','first_down_pass', 'season', 'home_point_diff',
+         'winning_team', 'season')
+
+rushing_data <- final_data %>%
+  filter(play_type == 'run')%>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 'ydstogo', 
+         'ydsnet', 'yards_gained', 'td_team', 
+         'yards_gained','third_down_converted', 
+         'third_down_failed','fourth_down_converted', 
+         'fourth_down_failed','fumble_lost',
+         'penalty_team', 'penalty_yards', 'total_home_rush_wpa',
+         'total_away_rush_wpa', 'score_differential',
+         'rush_touchdown', 'wpa', 'first_down_rush',
+         'first_down_pass', 'season', 'home_point_diff',
+         'winning_team', 'season')
+
+#Create 1st & 10 Data
+first_and_ten <- final_data %>%
+  filter(down == 1, ydstogo == 10) %>%
+  select('game_id', 'home_team', 'away_team', 'posteam', 
+         'game_date', 'half_seconds_remaining', 'down', 'ydstogo', 
          'ydsnet', 'yards_gained', 'play_type', 'td_team', 
          'yards_gained', 'posteam_qbr_rank',
          'third_down_converted', 'third_down_failed',
@@ -430,163 +456,11 @@ passing_data <- final_data %>%
          'first_down_pass', 'season', 'home_point_diff',
          'winning_team', 'season')
 
-rushing_data <- final_data %>%
-  filter(play_type == 'run')%>%
-  select('game_id', 'home_team', 'away_team', 'posteam', 
-  'game_date', 'half_seconds_remaining', 'down',
-  'ydstogo', 'ydsnet', 'yards_gained', 'td_team', 
-  'yards_gained', 'posteam_qbr_rank', 'home_point_diff',
-  'winning_team', 'season')
-
-#Create 1st & 10 Data
-first_and_ten <- final_data %>%
-  filter(down == 1, ydstogo == 10) %>%
-  select('game_id', 'home_team', 'away_team', 'posteam', 
-  'game_date', 'half_seconds_remaining', 'ydsnet', 
-  'yards_gained', 'td_team', 'play_type', 'yards_gained', 
-  'posteam_qbr_rank', 'home_point_diff', 'winning_team', 
-  'season')
-
 ##
-#Preliminary Graphing
+#Write Out New Data Files For Separate Page
 ##
 
-rushing <- rushing_data %>%
-  group_by(game_id) %>%
-  filter(winning_team == posteam) %>%
-  mutate(rushing_yards_winning_team = sum(yards_gained)) %>%
-  mutate(ypc = mean(yards_gained)) %>%
-  select(game_id, rushing_yards_winning_team, ypc,
-  season)
-
-rushing <- rushing[!duplicated(rushing$game_id), ]
-
-passing <- passing_data %>%
-  group_by(game_id) %>%
-  filter(winning_team == posteam) %>%
-  mutate(passing_yards_winning_team = sum(yards_gained)) %>%
-  mutate(ypa = mean(yards_gained)) %>%
-  select(game_id, passing_yards_winning_team, ypa, 
-         season)
-
-passing <- passing[!duplicated(passing$game_id), ]
-
-final_data_per_game <- final_data
-final_data_per_game <- final_data_per_game[
-!duplicated(final_data_per_game$game_id), ]
-
-final_data_per_game <-
-  final_data_per_game %>%
-  filter(winning_team != "tie") %>%
-  select('game_id', 'home_team', 'away_team', 
-  'game_date', 'home_score', 'away_score', 
-  'winning_team', 'losing_team', 'season')
-
-final_data_per_game <-
-  final_data_per_game %>%
-  inner_join(rushing, by = 'game_id') %>%
-  inner_join(passing, by = 'game_id')
-
-final_data_per_game <-
-  final_data_per_game %>%
-  mutate(percentage_yards_rushing = 
-  rushing_yards_winning_team/
-  (rushing_yards_winning_team + 
-  passing_yards_winning_team))
-
-ggplot(data = final_data_per_game)+ 
-  geom_point(aes(x = rushing_yards_winning_team, 
-   y = passing_yards_winning_team, color = winning_team,
-    alpha = 0.2)) +
-  labs(x = "Rushing Yards", y = "Passing Yards") + 
-  geom_abline(intercept = 297.8966416, 
-      slope = -0.4396726, color = "black")
-
-cor(final_data_per_game$ypc, final_data_per_game$ypa)
-
-ggplot(data = final_data_per_game) + 
-  geom_point(aes(x = ypc, y = ypa, color = 
-      winning_team, alpha = 0.2)) +
-  geom_abline(intercept = 7.32429203, 
-      slope = -0.03153615, color = "black")
-
-##
-#Win % vs Rushing %
-##
-
-team_stats <- 
-  final_data_per_game %>%
-  select(home_team)
-
-team_stats <- team_stats[!duplicated(
-  team_stats$home_team), ]
-colnames(team_stats) <- c("Team")
-
-win_tbl <- as.data.frame(table(
-  final_data_per_game$winning_team))
-colnames(win_tbl) <- c("Team", "Wins")
-
-loss_tbl <- as.data.frame(table(
-  final_data_per_game$losing_team))
-colnames(loss_tbl) <- c("Team", "Losses")
-
-rushing_yards_per_team_tbl <- 
-  final_data%>%
-  group_by(home_team) %>%
-  group_by(season)%>%
-  filter(play_type == 'run') %>%
-  mutate(rushing_yards_per_team_tbl = sum(yards_gained)) %>%
-  select('home_team', 'rushing_yards_per_team_tbl')
-
-rushing_yards_per_team_tbl <- 
-  rushing_yards_per_team_tbl[
-  !duplicated(rushing_yards_per_team_tbl$home_team), ]
-
-
-passing_yards_per_team_tbl <- 
-  final_data %>%
-  group_by(home_team) %>%
-  filter(play_type == 'pass') %>%
-  mutate(passing_yards_per_team_tbl = sum(yards_gained)) %>%
-  select('home_team', 'passing_yards_per_team_tbl')
-
-passing_yards_per_team_tbl <- 
-  passing_yards_per_team_tbl[
-    !duplicated(passing_yards_per_team_tbl$home_team), ]
-
-
-team_stats <-
-  team_stats %>%
-  inner_join(win_tbl, by = "Team") %>%
-  inner_join(loss_tbl, by = "Team")
-
-
-team_stats <-
-  team_stats %>%
-  mutate("rushing_yards_per_team_tbl" = 
-  rushing_yards_per_team_tbl$rushing_yards_per_team_tbl) %>%
-  mutate("passing_yards_per_team_tbl" =
-  passing_yards_per_team_tbl$passing_yards_per_team_tbl)
-
-
-team_stats <-
-  team_stats %>%
-  mutate("winning_percentage" = (Wins)/(Wins+Losses)) %>%
-  mutate("percentage_yards_rushing" = 
-  rushing_yards_per_team_tbl/
-  (rushing_yards_per_team_tbl+ 
-     passing_yards_per_team_tbl))
-
-cor(team_stats$percentage_yards_rushing, 
-    team_stats$winning_percentage)
-
-ggplot(data = team_stats) + 
-  geom_point(aes(x = percentage_yards_rushing, 
-        y = winning_percentage, color = Team)) +
-  labs(x = "Percentage Yards Rushing", y = 
-         "Winning Percentage") + 
-  geom_abline(intercept = 0.8119663, slope = -0.9474407, 
-              color = "black")
-
-
-
+write_csv(final_data, "final_data")
+write_csv(first_and_ten, "first_and_ten")
+write_csv(final_data, "passing_data")
+write_csv(rushing_data, "rushing_data")
