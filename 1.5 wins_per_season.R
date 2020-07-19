@@ -1,5 +1,5 @@
 #Function for team wins per season
-
+library(plyr)
 team_wins_per_season <- function(pbp_year, game_data_year) {
   pbp_year <-
     pbp_year %>%
