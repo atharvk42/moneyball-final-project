@@ -36,7 +36,6 @@ merge_pbp_game_data <- function(pbp_all, game_data_all) {
 percentage_yards_rushing_passing <- function(pbp, game_data) {
   
   final_data <- merge_pbp_game_data(pbp, game_data)
-  final_data <- merge_pbp_game_data(pbp18, game_data18)
   final_data <-
     final_data %>%
     filter(play_type == 'run' | play_type == 'pass') %>%
@@ -95,6 +94,7 @@ percentage_yards_rushing_passing <- function(pbp, game_data) {
   
   final_data_per_game <- final_data_per_game[!duplicated(final_data_per_game$game_id), ]
   final_data_per_game <- final_data_per_game[!duplicated(final_data_per_game$home_team), ]
+  temp <- final_data_per_game
   
   final_data_per_game <-
     final_data_per_game %>%
@@ -109,7 +109,19 @@ percentage_yards_rushing_passing <- function(pbp, game_data) {
     final_data_per_game %>%
     mutate(percentage_yards_rushing = rushing_yards_winning_team/(rushing_yards_winning_team+passing_yards_winning_team)) %>%
     mutate(percentage_yards_passing = passing_yards_winning_team/(rushing_yards_winning_team+passing_yards_winning_team)) %>%
-    select(home_team, percentage_yards_rushing, percentage_yards_passing)
+    select(home_team, percentage_yards_rushing)
+  
+  final_data_per_game <-
+    final_data_per_game %>%
+    mutate(temp, Season = substr(temp$game_id[1], 1, 4))
+  
+  colnames(final_data_per_game) <- c("Team", "percentage_yards_rushing")
+  
+  
+  final_data_per_game <-
+    final_data_per_game %>%
+    arrange(Team)
+  
   
   return(final_data_per_game)
 }
@@ -126,3 +138,17 @@ percentage_yards_rushing_passing16 <- percentage_yards_rushing_passing(pbp16, ga
 percentage_yards_rushing_passing17 <- percentage_yards_rushing_passing(pbp17, game_data17)
 percentage_yards_rushing_passing18 <- percentage_yards_rushing_passing(pbp18, game_data18)
 percentage_yards_rushing_passing19 <- percentage_yards_rushing_passing(pbp19, game_data19)
+
+percentage_yards_rushing_passing_final <- rbind(percentage_yards_rushing_passing09,
+                                                percentage_yards_rushing_passing10,
+                                                percentage_yards_rushing_passing11,
+                                                percentage_yards_rushing_passing12,
+                                                percentage_yards_rushing_passing13,
+                                                percentage_yards_rushing_passing14,
+                                                percentage_yards_rushing_passing15,
+                                                percentage_yards_rushing_passing16,
+                                                percentage_yards_rushing_passing17,
+                                                percentage_yards_rushing_passing18,
+                                                percentage_yards_rushing_passing19)
+
+write_csv(percentage_yards_rushing_passing_final, "data/percentage_yards_rushing_passing.csv")
