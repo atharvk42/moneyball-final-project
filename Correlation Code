@@ -1,0 +1,11 @@
+cor(modeling_data$ALY, 
+    modeling_data$winning_percentage)
+
+cor(modeling_data$ASR, 
+    modeling_data$winning_percentage)
+
+cor(modeling_data$SROA_rushing, 
+    modeling_data$winning_percentage)
+
+cor(modeling_data$SROA_passing, 
+    modeling_data$winning_percentage)
