@@ -1,0 +1,16 @@
+#JUST REPLACE final_data with your data set  
+  #Removing Incorrect Names
+  final_data$home_team[final_data$home_team == 'SD'] <- 'LAC'
+  final_data$home_team[final_data$home_team == 'JAC'] <- 'JAX'
+  final_data$home_team[final_data$home_team == 'STL'] <- 'LAR'
+  final_data$home_team[final_data$home_team == 'LA'] <- 'LAR'
+  
+  final_data$away_team[final_data$away_team == 'SD'] <- 'LAC'
+  final_data$away_team[final_data$away_team == 'JAC'] <- 'JAX'
+  final_data$away_team[final_data$away_team == 'STL'] <- 'LAR'
+  final_data$away_team[final_data$away_team == 'LA'] <- 'LAR'
+  
+  final_data$posteam[final_data$posteam == 'SD'] <- 'LAC'
+  final_data$posteam[final_data$posteam == 'JAC'] <- 'JAX'
+  final_data$posteam[final_data$posteam == 'STL'] <- 'LAR'
+  final_data$posteam[final_data$posteam == 'LA'] <- 'LAR'
