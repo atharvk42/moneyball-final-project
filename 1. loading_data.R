@@ -1,6 +1,10 @@
 #Only have to install the packages once
 #devtools::install_github(repo = "maksimhorowitz/nflscrapR")
 #devtools::install_github(repo = "ryurko/nflscrapR")
+#install.packages('plyr')
+library(tidyverse)
+library(ggplot2)
+library(plyr)
 
 remove(list = ls())
 setwd("~/Moneyball") # or whatever your directory is
