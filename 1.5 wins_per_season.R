@@ -1,5 +1,6 @@
 library(plyr)
 team_wins_per_season <- function(pbp_year, game_data_year) {
+  
   pbp_year <-
     pbp_year %>%
     select('game_id', 'home_team', 'away_team', 'posteam', 'game_date', 'half_seconds_remaining', 'down', 'ydstogo', 'ydsnet', 'yards_gained', 'play_type', 'td_team')
@@ -45,6 +46,7 @@ team_wins_per_season <- function(pbp_year, game_data_year) {
     filter(game_id != '2013120101')
   
   final_data_per_game <- final_data
+  temp <- final_data_per_game
   
   final_data_per_game <- final_data_per_game[!duplicated(final_data_per_game$game_id), ]
   
@@ -116,6 +118,12 @@ team_wins_per_season <- function(pbp_year, game_data_year) {
     mutate(winning_percentage = (as.double(Wins)/16)) %>%
     select(Team, winning_percentage)
   
+  temp <- temp[!duplicated(temp$game_id), ]
+  temp <- temp[!duplicated(temp$home_team), ]
+  
+  final_data_per_game <-
+    final_data_per_game %>%
+    mutate(temp, Season = substr(temp$game_id[1], 1, 4))
   
   return(final_data_per_game)
 }
@@ -132,17 +140,9 @@ wins17 <- team_wins_per_season(pbp17, game_data17)
 wins18 <- team_wins_per_season(pbp18, game_data18)
 wins19 <- team_wins_per_season(pbp19, game_data19)
 
-write_csv(wins09, "winning_percentages/wins09")
-write_csv(wins10, "winning_percentages/wins10")
-write_csv(wins11, "winning_percentages/wins11")
-write_csv(wins12, "winning_percentages/wins12")
-write_csv(wins13, "winning_percentages/wins13")
-write_csv(wins14, "winning_percentages/wins14")
-write_csv(wins15, "winning_percentages/wins15")
-write_csv(wins16, "winning_percentages/wins16")
-write_csv(wins17, "winning_percentages/wins17")
-write_csv(wins18, "winning_percentages/wins18")
-write_csv(wins19, "winning_percentages/wins19")
+wins_final <- rbind(wins09, wins10, wins11, wins12, wins13, wins14, wins15, wins16, wins17, wins18, wins19)
+
+write_csv(wins_final, "winning_percentages/winning_percentages.csv")
 
 
 #calculate rushing/passing percentage per season per team
