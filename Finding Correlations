@@ -1,0 +1,468 @@
+#setwd("Moneyball)
+library(tidyverse)
+
+modeling_data <- modeling_data %>%
+  filter(Season == 2009)
+a09 <- cor(modeling_data$ALY, 
+         modeling_data$winning_percentage)
+
+b09 <- cor(modeling_data$ASR, 
+         modeling_data$winning_percentage)
+
+c09 <- cor(modeling_data$SROA_rushing, 
+         modeling_data$winning_percentage)
+
+d09 <- cor(modeling_data$SROA_passing, 
+         modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2010)
+a10 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b10 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c10 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d10 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2011)
+a11 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b11 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c11 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d11 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2012)
+a12 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b12 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c12 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d12 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2013)
+a13 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b13 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c13 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d13 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2014)
+a14 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b14 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c14 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d14 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2015)
+a15 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b15 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c15 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d15 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2016)
+a16 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b16 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c16 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d16 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2017)
+a17 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b17 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c17 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d17 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2018)
+a18 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b18 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c18 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d18 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+modeling_data <- modeling_data %>%
+  filter(Season == 2019)
+a19 <- cor(modeling_data$ALY, 
+           modeling_data$winning_percentage)
+
+b19 <- cor(modeling_data$ASR, 
+           modeling_data$winning_percentage)
+
+c19 <- cor(modeling_data$SROA_rushing, 
+           modeling_data$winning_percentage)
+
+d19 <- cor(modeling_data$SROA_passing, 
+           modeling_data$winning_percentage)
+
+
+
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+
+a <- cor(modeling_data$ALY, 
+         modeling_data$winning_percentage)
+
+b <- cor(modeling_data$ASR, 
+         modeling_data$winning_percentage)
+
+c <- cor(modeling_data$SROA_rushing, 
+         modeling_data$winning_percentage)
+
+d <- cor(modeling_data$SROA_passing, 
+         modeling_data$winning_percentage)
+
+modeling_data <- modeling_data %>%
+  mutate(scaled_ALY = ALY/3)
+modeling_data <- modeling_data %>%
+  mutate(scaled_ASR = log(ASR)/-2)
+modeling_data <- modeling_data %>%
+  mutate(scaled_rSROA = SROA_rushing *4/3)
+modeling_data <- modeling_data %>%
+  mutate(scaled_pSROA = SROA_passing *4/3)
+
+
+cor_ALY_avg <- (.434275 + .264986 + .290563 +
+  .373295 + .445597 + .469347 + .339952 +
+  .209301 + .449885 + .406378 + .332871)/11
+cor_ALY_avg <- 0.3651318
+
+cor_ASR_avg <- (-.118407 - .200166 - .119997 -
+  .001258 - .163970 - .516849 - .076051 -
+  .304176 - .408073 - .266600 - .325705)/11
+cor_ASR_avg <- -0.2273865
+
+cor_rSROA_avg <- (.264403 + .202383 + .128759 +
+  .274184 + .301707 + .414715 + .212379 +
+  .035535 + .253505 + .630154 + .478736)/11
+cor_rSROA_avg <- 0.3651318
+
+cor_pSROA_avg <- (.774628 + .577083 + .673492 +
+  .6739899 + .608657 + .484739 + .314957 +
+  .359718 + .638032 + .542373 + .435015)/11
+cor_pSROA_avg <- 0.5529713
+
+
+##MODEL TESTS
+
+modeling_data <- modeling_data %>%
+  mutate(model = 4.8 * (percentage_yards_passing * (
+  3.2*(.553*scaled_pSROA) + (-.227*scaled_ASR))) + 2*
+  (percentage_yards_rushing * (6.1*(.365*scaled_ALY) + 
+  3.1*(.291*scaled_rSROA))))
+         
+cor(modeling_data$model, 
+modeling_data$winning_percentage)
+           
+
+
+modeling_data <- modeling_data %>%
+  mutate(model = 3.8 * (percentage_yards_passing * (
+  3*(.553*SROA_passing) + 3*(-.227*ASR))) +
+  (percentage_yards_rushing * (3*(.365*ALY) + 
+  3*(.291*SROA_rushing))))
+
+cor(modeling_data$model, 
+    modeling_data$winning_percentage)
+
+
+
+passing_data <- read_csv("passing_data")
+
+passing_data <- passing_data %>%
+  filter(pass_touchdown == 1)
+
+passing_data <- passing_data %>%
+  select(season, posteam, pass_touchdown)
+
+passing_data <- passing_data %>%
+  mutate(Season = season)%>%
+  mutate(Team = posteam)%>%
+  mutate(passtouchdown = case_when(
+  pass_touchdown == 1 ~ "Yes"))%>%
+  select(Team, Season, passtouchdown)
+
+passing_data <- passing_data %>%
+  group_by(Team, Season)%>%
+  count(passtouchdown = "Yes")%>%
+  mutate(Pass_TD = n)%>%
+  select(Team, Season, Pass_TD)
+
+
+rushing_data <- read_csv("rushing_data")
+
+rushing_data <- rushing_data %>%
+  filter(rush_touchdown == 1)
+
+rushing_data <- rushing_data %>%
+  select(season, posteam, rush_touchdown)
+
+rushing_data <- rushing_data %>%
+  mutate(Season = season)%>%
+  mutate(Team = posteam)%>%
+  mutate(rushtouchdown = case_when(
+    rush_touchdown == 1 ~ "Yes"))%>%
+  select(Team, Season, rushtouchdown)
+
+rushing_data <- rushing_data %>%
+  group_by(Team, Season)%>%
+  count(rushtouchdown = "Yes")%>%
+  mutate(Rush_TD = n)%>%
+  select(Team, Season, Rush_TD)
+
+TD_data <- passing_data %>%
+  inner_join(rushing_data, by =
+  "Team")%>%
+  mutate(Good = case_when(
+  Season.x == Season.y ~ "1",
+  Season.x != Season.y ~ "0"))%>%
+  mutate(Season = Season.x)%>%
+  filter(Good == 1)%>%
+  select(Team, Season, Pass_TD, Rush_TD)
+
+modeling_data <- modeling_data %>%
+  inner_join(TD_data, by = "Team")%>%
+  mutate(Good = case_when(
+  Season.x == Season.y ~ "1",
+  Season.x != Season.y ~ "0"))%>%
+  mutate(Season = Season.x)%>%
+  filter(Good == 1)
+
+modeling_data <- modeling_data %>%
+  select (Team, Season, Pass_TD, Rush_TD, ALY,
+  ASR, SROA_rushing, SROA_passing, winning_percentage,
+  percentage_yards_rushing, percentage_yards_passing)
+
+write_csv(modeling_data, "modeling_data")
+
+
+##STARTING CORRELATIONS OF PASS AND RUSH TD
+modeling_data <- read_csv("modeling_data")
+
+e <- cor(modeling_data$Pass_TD, 
+         modeling_data$winning_percentage)
+
+f <- cor(modeling_data$Rush_TD, 
+         modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2019)
+
+e19 <- cor(modeling_data$Pass_TD, 
+         modeling_data$winning_percentage)
+
+f19 <- cor(modeling_data$Rush_TD, 
+         modeling_data$winning_percentage)
+
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2018)
+
+e18 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f18 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2017)
+
+e17 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f17 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2016)
+
+e16 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f16 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2015)
+
+e15 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f15 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2014)
+
+e14 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f14 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2013)
+
+e13 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f13 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2012)
+
+e12 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f12 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2011)
+
+e11 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f11 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2010)
+
+e10 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f10 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+modeling_data <- read_csv("modeling_data")
+modeling_data <- modeling_data %>%
+  filter(Season == 2009)
+
+e09 <- cor(modeling_data$Pass_TD, 
+           modeling_data$winning_percentage)
+
+f09 <- cor(modeling_data$Rush_TD, 
+           modeling_data$winning_percentage)
+
+cor_PTD_avg <- ((.754541+ .583109+ .685835+ .553060+
+  .539186 + .530302 + .308187 + .406575 + .531911 +
+  .508286 + .520555)/11)
+cor_PTD_avg <- 0.538322
+
+cor_RTD_avg <- ((.663322+.405219+.322332+.463069+
+  .431231+.451764+.631743+.220921+.381223+.6288889+
+  .555638)/11)
+cor_RTD_avg <- .468668
+
+modeling_data <-read_csv("modeling_data")
+
+
+##PASSING MODELS
+ggplot(data = modeling_data)+
+  geom_point(aes(x= Season, y = Pass_TD,
+   color = Team))
+
+ggplot(data = modeling_data)+
+  geom_point(aes(x= Pass_TD, y = winning_percentage,
+                 color = Team))
+##RUSHING MODELS
+ggplot(data = modeling_data)+
+  geom_point(aes(x= Season, y = Rush_TD,
+                 color = Team))
+
+ggplot(data = modeling_data)+
+  geom_point(aes(x= Rush_TD, y = winning_percentage,
+                 color = Team))
+
+
+
+modeling_data <-read_csv("modeling_data")
+
+
+
+
+
+
+
+
