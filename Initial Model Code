@@ -1,0 +1,66 @@
+modeling_data <- read_csv("TheRealOfficialModel.csv")
+
+a <- cor(modeling_data$ALY, 
+         modeling_data$winning_percentage)
+
+b <- cor(modeling_data$ASR, 
+         modeling_data$winning_percentage)
+
+c <- cor(modeling_data$SROA_rushing, 
+         modeling_data$winning_percentage)
+
+d <- cor(modeling_data$SROA_passing, 
+         modeling_data$winning_percentage)
+
+modeling_data <- modeling_data %>%
+  mutate(scaled_ALY = ALY/3)
+modeling_data <- modeling_data %>%
+  mutate(scaled_ASR = log(ASR)/-2)
+modeling_data <- modeling_data %>%
+  mutate(scaled_rSROA = SROA_rushing *4/3)
+modeling_data <- modeling_data %>%
+  mutate(scaled_pSROA = SROA_passing *4/3)
+
+
+cor_ALY_avg <- (.434275 + .264986 + .290563 +
+  .373295 + .445597 + .469347 + .339952 +
+  .209301 + .449885 + .406378 + .332871)/11
+cor_ALY_avg <- 0.3651318
+
+cor_ASR_avg <- (-.118407 - .200166 - .119997 -
+  .001258 - .163970 - .516849 - .076051 -
+  .304176 - .408073 - .266600 - .325705)/11
+cor_ASR_avg <- -0.2273865
+
+cor_rSROA_avg <- (.264403 + .202383 + .128759 +
+  .274184 + .301707 + .414715 + .212379 +
+  .035535 + .253505 + .630154 + .478736)/11
+cor_rSROA_avg <- 0.3651318
+
+cor_pSROA_avg <- (.774628 + .577083 + .673492 +
+  .6739899 + .608657 + .484739 + .314957 +
+  .359718 + .638032 + .542373 + .435015)/11
+cor_pSROA_avg <- 0.5529713
+
+
+##MODEL TESTS
+
+modeling_data <- modeling_data %>%
+  mutate(model = 4.8 * (percentage_yards_passing * (
+  3.2*(.553*scaled_pSROA) + (-.227*scaled_ASR))) + 2*
+  (percentage_yards_rushing * (6.1*(.365*scaled_ALY) + 
+  3.1*(.291*scaled_rSROA))))
+         
+cor(modeling_data$model, 
+modeling_data$winning_percentage)
+           
+
+
+modeling_data <- modeling_data %>%
+  mutate(model = 3.8 * (percentage_yards_passing * (
+  3*(.553*SROA_passing) + 3*(-.227*ASR))) +
+  (percentage_yards_rushing * (3*(.365*ALY) + 
+  3*(.291*SROA_rushing))))
+
+cor(modeling_data$model, 
+    modeling_data$winning_percentage)
