@@ -1,0 +1,52 @@
+library(tidyverse)
+modeling_data <- read_csv("modeling_data")
+
+modeling_data <- modeling_data %>%
+  mutate(scaled_ALY = ALY/3)
+modeling_data <- modeling_data %>%
+  mutate(scaled_ASR = log(ASR)/-2)
+modeling_data <- modeling_data %>%
+  mutate(scaled_rSROA = SROA_rushing *4/3)
+modeling_data <- modeling_data %>%
+  mutate(scaled_pSROA = SROA_passing *4/3)
+modeling_data <- modeling_data %>%
+  mutate(scaled_PTD = log(Pass_TD)/2)
+modeling_data <- modeling_data %>%
+  mutate(scaled_RTD = log(Rush_TD)*2/3)
+
+
+modeling_data <- modeling_data %>%
+  mutate(model1 = 1.3*(percentage_yards_passing*(
+    2*(.553*scaled_pSROA) + 1*(-.227*scaled_ASR)) +
+    2.4*(.538*scaled_PTD)) + 1*(percentage_yards_rushing* 
+    (2*(.365*scaled_ALY) + 1*(.291*scaled_rSROA) + 
+    2*(.469*scaled_RTD))))
+
+cor(modeling_data$model1, 
+    modeling_data$winning_percentage)
+#.64728
+
+modeling_data <- modeling_data %>%
+  mutate(model2 = (percentage_yards_passing*(
+    .8*(.553*scaled_pSROA) + .8*(.538*scaled_PTD))) +
+    (percentage_yards_rushing* (1.1*(.291*scaled_rSROA) + 
+    .9*(.469*scaled_RTD))))
+
+cor(modeling_data$model2, 
+    modeling_data$winning_percentage)
+#0.6722539
+
+
+
+modeling_data <- modeling_data %>%
+  filter(winning_percentage > .62)%>%
+  mutate(model3 = (10*((.553*scaled_pSROA) + 
+  (.538*scaled_PTD) + (-.227*scaled_ASR))) / 
+  ((.291*scaled_rSROA) + (.469*scaled_RTD)+
+  (.365*scaled_ALY)))
+
+cor(modeling_data$model3, 
+    modeling_data$percentage_yards_passing)
+
+
+
