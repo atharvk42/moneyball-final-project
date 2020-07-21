@@ -1,0 +1,124 @@
+#setwd("Moneyball")
+library(tidyverse)
+final_pbp <- read_csv("final_pbp.csv")
+final_pbp <- final_pbp %>% 
+  arrange(season, Team, game_id, play_id)
+
+#
+#NUMBER OF PRIOR PASSES VS PASS EPA
+#
+ggplot(data = final_pbp %>%
+    filter(play_type == "pass")) +
+  geom_point(aes(x = no_passes, y = epa, alpha = .01,
+        color = season))+
+  geom_abline(intercept =  0.0495796428,
+      slope = -0.0007174325 , color = 'blue') +
+  labs(x = "Number of Prior Passes", y = "Pass EPA",
+    title = "Number of Prior Passes vs Pass EPA")
+
+
+fit <-lm(formula = epa  ~ no_passes, 
+         data = final_pbp %>% 
+        filter(play_type == "pass"))
+
+fit[["coefficients"]]
+
+#
+#NUMBER OF PAST RUNS VS PASS EPA
+#
+ggplot(data = final_pbp %>%
+         filter(play_type == "pass")) +
+  geom_point(aes(x = no_runs, y = epa, alpha = .01))+
+  geom_abline(intercept =  0.064698276,
+              slope = -0.002224778, color = 'blue')+
+  labs(x = "Number of Prior Runs", y = "Pass EPA", 
+       title = "Number of Prior Runs vs Pass EPA")
+
+fit <-lm(formula = epa  ~ no_runs, 
+         data = final_pbp %>% 
+           filter(play_type == "pass"))
+
+fit[["coefficients"]]
+
+#
+#NUMBER OF PRIOR RUNS VS RUSH EPA
+#
+ggplot(data = final_pbp%>%
+    filter(play_type == "run")) +
+  geom_point(aes(x = no_runs, y = epa, alpha = .01,
+      color = season))+ 
+geom_abline(intercept = -0.0373399780,
+  slope = -0.0005314371,  color = 'blue')+
+  labs(x = "Number of Prior Runs", y = "Rush EPA", 
+       title = "Number of Prior Runs vs Rush EPA")
+
+fit <-lm(formula = epa  ~ no_runs, 
+         data = final_pbp%>%
+           filter(play_type == "run"))
+
+fit[["coefficients"]]
+
+#
+#NUMBER OF PRIOR RUNS VS RUSH EPA
+#
+ggplot(data = final_pbp%>%
+         filter(play_type == "run")) +
+  geom_point(aes(x = no_passes, y = epa, alpha = .01,
+                 color = season))+ 
+  geom_abline(intercept = 0.0498056619,
+          slope = 0.0002793038 ,  color = 'blue')+
+  labs(x = "Number of Prior Passes", y = "Rush EPA", 
+       title = "Number of Prior Passes vs Rush EPA")
+
+fit <-lm(formula = epa  ~ no_passes, 
+         data = final_pbp%>%
+           filter(play_type == "run"))
+
+fit[["coefficients"]]
+
+
+
+
+#NO_PASSES VS EPA (INSERT YEAR DOESNT CHANGE)
+ggplot(data = final_pbp %>%
+         filter(season == "2018", play_type == "pass")) +
+  geom_point(aes(x = no_passes, y = epa, alpha = .01))+
+  geom_abline(intercept =  0.0372920314,
+      slope = -0.0002083983  , color = 'blue')+
+  labs(x = "Number of Prior Passes", y = "Pass EPA", 
+       title = "Number of Prior Passes vs Pass EPA
+       on a Seasonly Basis")
+
+fit <-lm(formula = epa  ~ no_passes, 
+         data = final_pbp %>% 
+           filter(season == "2018",
+              play_type = "pass"))
+
+fit[["coefficients"]]
+
+#NO_PASSES VS EPA (INSERT GAMEID DOESN'T CHANGE)
+ggplot(data = final_pbp %>%
+         filter(play_type == "pass", 
+            game_id == "2009101808")) +
+  geom_point(aes(x = no_passes, y = epa, alpha = .01))+
+  labs(x = "Number of Prior Passes", y = "Pass EPA", 
+       title = "Number of Prior Passes vs Pass EPA
+       on a Game by Game Basis")
+
+
+fit <-lm(formula = epa  ~ no_passes, 
+         data = final_pbp %>% 
+           filter(season == "2018"))
+
+fit[["coefficients"]]
+
+
+
+
+
+
+
+
+
+
+
